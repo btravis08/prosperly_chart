@@ -58,7 +58,7 @@ class ReturnsCashFlowChart {
             barValue: (d) => d.accruedEquity + d.cumulativeTotalCashflow,
           },
           {
-            name: "Accrued Equity",
+            name: "Equity",
             value: (d) => d.accruedEquity,
             barValue: (d) => d.accruedEquity,
           },
