@@ -142,9 +142,7 @@ class ReturnsCashFlowChart {
 
     this.tooltip = this.container.append("div").attr("class", "tooltip");
 
-    this.tooltipArrowSize = parseFloat(
-      getComputedStyle(this.tooltip.node()).getPropertyValue("--arrow-size")
-    );
+    this.tooltipArrowSize = 5;
 
     this.tooltipArrow = this.tooltip
       .append("div")
