@@ -28,7 +28,7 @@ class ReturnsCashFlowChart {
     this.marginRight = this.totalHandleRadius + this.totalHandleStrokeWidth / 2;
     this.marginBottom = 32;
     this.marginLeft = this.totalHandleRadius + this.totalHandleStrokeWidth / 2;
-    this.height = 200;
+    this.height = 275;
 
     this.lgBarPadding = 10;
     this.smBarWidth = 5;
