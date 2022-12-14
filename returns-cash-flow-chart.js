@@ -13,6 +13,15 @@ class ReturnsCashFlowChart {
     this._scaffold();
     this.ro = new ResizeObserver(this._resize);
     this.ro.observe(this.el);
+    this.io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          this.isInView = true;
+          this._render();
+        }
+      });
+    });
+    this.io.observe(this.el);
   }
 
   _setup() {
@@ -119,9 +128,8 @@ class ReturnsCashFlowChart {
       .append("svg")
       .on("pointerenter", this._entered)
       .on("pointermove", this._moved)
-      .on("pointerleave", this._left)
-      .on("touchstart", (event) => event.preventDefault());
-    
+      .on("pointerleave", this._left);
+
     this.svg
       .append("defs")
       .append("linearGradient")
@@ -135,7 +143,7 @@ class ReturnsCashFlowChart {
       .join("stop")
       .attr("offset", (d) => d.offset)
       .attr("stop-color", (d) => d.stopColor);
-
+    
     this.xAxisG = this.svg
       .append("g")
       .attr("class", "axis-g axis-g--x")
@@ -156,7 +164,7 @@ class ReturnsCashFlowChart {
 
     this.tooltip = this.container.append("div").attr("class", "tooltip");
 
-    this.tooltipArrowSize = 5;
+    this.tooltipArrowSize = 5; //make sure it matches arrow size in css
 
     this.tooltipArrow = this.tooltip
       .append("div")
@@ -171,10 +179,8 @@ class ReturnsCashFlowChart {
 
     this.svg.attr("viewBox", [0, 0, this.width, this.height]);
 
-    if (this.displayData) {
-      this._setBreakpointEffects();
+    
       this._render();
-    }
   }
 
   _wrangle() {
@@ -286,10 +292,9 @@ class ReturnsCashFlowChart {
       this.zeroLineY = this.height - this.marginBottom;
     }
 
-    if (this.width) {
-      this._setBreakpointEffects();
+  
+  
       this._render();
-    }
   }
 
   _setBreakpointEffects() {
@@ -340,6 +345,8 @@ class ReturnsCashFlowChart {
   }
 
   _render() {
+    if (!this.isInView || !this.width || !this.displayData) return;
+    this._setBreakpointEffects();
     this.container
       .classed("is-transitioning", true)
       .classed("is-interactive", this.isInteractive)
@@ -348,7 +355,7 @@ class ReturnsCashFlowChart {
       .classed("show-zero-line", this.showZeroLine)
       .classed("is-cash-in-deal", this.isCashInDeal);
     if (this.isInteractive) this.xs = this.years.map((d) => this.x(d));
-    this.transition = this.svg.transition().duration(250);
+    this.transition = this.svg.transition().duration(300).delay(100);
     if (this.showXAxis) this._renderXAxis();
     if (this.isCashInDeal) {
       this._renderCashInDealBars();
@@ -455,6 +462,11 @@ class ReturnsCashFlowChart {
               .attr("height", 0)
           )
       );
+    barG
+      .select(".bar-rect")
+      .attr("y", this.zeroLineY)
+      .attr("height", 0)
+      .attr("class", (d) => `bar-rect ${d.colorClass}`);
 
     barG
       .selectAll(".bar-text")
@@ -465,13 +477,22 @@ class ReturnsCashFlowChart {
           .attr("class", "bar-text")
           .attr("fill", "currentColor")
           .attr("dy", "0.32em")
-          .attr("text-anchor", "middle")
-          .attr("y", this.zeroLineY)
+          .attr("text-anchor", "middle")     
       )
+          .attr("y", this.zeroLineY)
+          .attr("y", (d, i, n) => {
+        const p = d3.select(n[i].parentNode).datum();
+        if (p.barValue === null) return this.zeroLineY;
+        const sign = this.y(p.barValue) > this.zeroLineY ? 1 : -1;
+        return (
+          this.zeroLineY +
+          sign * (this.barLabelsPadding + i * this.barLabelsRowOffset)
+        );
+      })
+ 
       .attr("class", (d) => `bar-text bar-text--${d.type}`)
       .text((d) => d.text);
 
-    barG.select(".bar-rect").attr("class", (d) => `bar-rect ${d.colorClass}`);
 
     barG
       .transition(this.transition)
@@ -528,11 +549,11 @@ class ReturnsCashFlowChart {
           .attr("class", (d, i) => `bar-rect series-${i + 1}`)
           .attr("fill", "currentColor")
           .attr("x", -this.barWidth / 2)
-          .attr("y", this.zeroLineY)
-          .attr("width", this.barWidth)
-          .attr("height", 0)
+          .attr("width", this.barWidth)     
       )
-      .attr("rx", this.barBorderRadius);
+          .attr("y", this.zeroLineY)
+          .attr("height", 0)
+          .attr("rx", this.barBorderRadius);
 
     this.yearG
       .transition(this.transition)
