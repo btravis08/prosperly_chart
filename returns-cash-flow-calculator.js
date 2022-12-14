@@ -31,9 +31,11 @@ class ReturnsCashFlowCalculator {
             this.amortization * 12,
             this.loanAmount,
             1,
-            currentYear,
+            currentMonth,
             0
           );
+
+          
       } else if (currentMonth < this.timeToRefinance) {
         d.propertyValueOverTime =
           this.purchasePrice *
@@ -48,7 +50,7 @@ class ReturnsCashFlowCalculator {
             this.amortization * 12,
             this.loanAmount,
             1,
-            currentYear,
+            currentMonth,
             0
           );
       } else {
@@ -65,7 +67,7 @@ class ReturnsCashFlowCalculator {
             this.refinanceAmortization * 12,
             this.refinanceLoanAmount,
             1,
-            currentYear,
+            currentMonth,
             0
           );
       }
@@ -92,7 +94,7 @@ class ReturnsCashFlowCalculator {
       d.totalMonthlyIncomeOverTime =
         d.rentalIncomeOverTime + d.otherIncomeOverTime;
 
-      d.mortgagePaymentOverTime = formulajs.PMT(
+      d.mortgagePaymentOverTime = -formulajs.PMT(
         this.interestRate / 12,
         this.amortization * 12,
         this.loanAmount
@@ -103,8 +105,8 @@ class ReturnsCashFlowCalculator {
       d.insuranceOverTime =
         this.propertyInsurance *
         formulajs.POWER(1 + this.expenseGrowth, currentYear - 1);
-      if (this.pmi && d.accruedEquityPercentageOverTime > 0.2) {
-        d.pmiOverTime = pmi;
+      if (this.pmi && d.accruedEquityPercentageOverTime < 0.2) {
+        d.pmiOverTime = (this.loanAmount * this.pmi)/12;
       } else {
         d.pmiOverTime = 0;
       }
@@ -115,12 +117,13 @@ class ReturnsCashFlowCalculator {
         this.otherExpenses *
         formulajs.POWER(1 + this.expenseGrowth, currentYear - 1);
       d.propertyManagementOverTime =
-        this.propertyManagementFee * d.totalMonthlyIncomeOverTime;
+        this.propertyManagementFee * d.rentalIncomeOverTime;
       d.maintenanceCapExOverTime =
         this.maintenanceCapExRate *
-        d.totalMonthlyIncomeOverTime *
+        d.rentalIncomeOverTime *
         formulajs.POWER(1 + this.expenseGrowth, currentYear - 1);
-      d.vacancyOverTime = d.totalMonthlyIncomeOverTime * this.vacancyRate;
+      
+      d.vacancyOverTime = d.rentalIncomeOverTime * this.vacancyRate;
       d.totalMonthlyExpensesOverTime =
         d.mortgagePaymentOverTime +
         d.taxesOverTime +
@@ -166,7 +169,7 @@ class ReturnsCashFlowCalculator {
           this.downPaymentAmount +
           this.rehabCosts);
     }
-
+    console.log(monthlyData)
     /* —————— Yearly data for charts —————— */
     let yearlyData = monthlyData
       .filter((d) => d.isYearEnd)
@@ -183,8 +186,8 @@ class ReturnsCashFlowCalculator {
       cashInDealAfterRefinance === null
         ? cashInDealAfterRefinance
         : Math.round(cashInDealAfterRefinance);
-    yearlyData.cashToClose = -Math.round(cashToClose);
-    yearlyData.cashToStabilize = -Math.round(cashToStabilize);
+    yearlyData.cashToClose = Math.round(cashToClose);
+    yearlyData.cashToStabilize = Math.round(cashToStabilize);
     return yearlyData;
   }
 
