@@ -186,8 +186,8 @@ class ReturnsCashFlowCalculator {
       cashInDealAfterRefinance === null
         ? cashInDealAfterRefinance
         : Math.round(cashInDealAfterRefinance);
-    yearlyData.cashToClose = Math.round(cashToClose);
-    yearlyData.cashToStabilize = Math.round(cashToStabilize);
+    yearlyData.cashToClose = -Math.round(cashToClose);
+    yearlyData.cashToStabilize = -Math.round(cashToStabilize);
     return yearlyData;
   }
 
