@@ -121,6 +121,20 @@ class ReturnsCashFlowChart {
       .on("pointermove", this._moved)
       .on("pointerleave", this._left)
       .on("touchstart", (event) => event.preventDefault());
+    
+    this.svg
+      .append("defs")
+      .append("linearGradient")
+      .attr("id", "returnsCashFlowChartGradient")
+      .attr("gradientTransform", "rotate(90)")
+      .selectAll("stop")
+      .data([
+        { offset: "15%", stopColor: "#5261F0" },
+        { offset: "100%", stopColor: "#7949FF" },
+      ])
+      .join("stop")
+      .attr("offset", (d) => d.offset)
+      .attr("stop-color", (d) => d.stopColor);
 
     this.xAxisG = this.svg
       .append("g")
