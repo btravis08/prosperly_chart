@@ -34,7 +34,11 @@ class ReturnsCashFlowCalculator {
             currentMonth,
             0
           );
-
+          d.mortgagePaymentOverTime = -formulajs.PMT(
+            this.interestRate / 12,
+            this.amortization * 12,
+            this.loanAmount
+          );
           
       } else if (currentMonth < this.timeToRefinance) {
         d.propertyValueOverTime =
@@ -58,7 +62,7 @@ class ReturnsCashFlowCalculator {
           this.arv *
           formulajs.POWER(
             formulajs.POWER(1 + this.propertyValueGrowth, 1 / 12),
-            currentMonth
+            (currentMonth - this.timeToRefinance + 1)
           );
         d.loanBalanceOverTime =
           this.refinanceLoanAmount +
@@ -67,8 +71,13 @@ class ReturnsCashFlowCalculator {
             this.refinanceAmortization * 12,
             this.refinanceLoanAmount,
             1,
-            currentMonth,
+            currentMonth - this.timeToRefinance + 1,
             0
+          );
+          d.mortgagePaymentOverTime = -formulajs.PMT(
+            this.refinanceInterestRate / 12,
+            this.refinanceAmortization * 12,
+            this.refinanceLoanAmount
           );
       }
 
