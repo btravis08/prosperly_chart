@@ -103,11 +103,6 @@ class ReturnsCashFlowCalculator {
       d.totalMonthlyIncomeOverTime =
         d.rentalIncomeOverTime + d.otherIncomeOverTime;
 
-      d.mortgagePaymentOverTime = -formulajs.PMT(
-        this.interestRate / 12,
-        this.amortization * 12,
-        this.loanAmount
-      );
       d.taxesOverTime =
         ((this.purchasePrice * this.propertyTaxRate) / 12) *
         formulajs.POWER(1 + this.propertyTaxGrowth, currentYear - 1);
