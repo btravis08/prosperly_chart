@@ -299,6 +299,11 @@ class ReturnsCashFlowCalculator {
     this.refinanceLoanAmount = +_;
     return this;
   }
+  
+  setLtv(_) {
+    this.ltv = +_;
+    return this;
+  }
 
   setCashOutPotential(_) {
     this.cashOutPotential = +_;
