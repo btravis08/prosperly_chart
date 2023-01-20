@@ -17,7 +17,9 @@ class ReturnsCashFlowChart {
       entries.forEach((e) => {
         if (e.isIntersecting) {
           this.isInView = true;
-          this._render();
+          setTimeout(() => {
+            this._render();
+          }, 500);
         }
       });
     });
@@ -119,6 +121,8 @@ class ReturnsCashFlowChart {
   }
 
   _scaffold() {
+    d3.select(this.el).selectAll("*").remove();
+
     this.container = d3
       .select(this.el)
       .append("div")
@@ -143,7 +147,7 @@ class ReturnsCashFlowChart {
       .join("stop")
       .attr("offset", (d) => d.offset)
       .attr("stop-color", (d) => d.stopColor);
-    
+
     this.xAxisG = this.svg
       .append("g")
       .attr("class", "axis-g axis-g--x")
@@ -164,7 +168,7 @@ class ReturnsCashFlowChart {
 
     this.tooltip = this.container.append("div").attr("class", "tooltip");
 
-    this.tooltipArrowSize = 5; //make sure it matches arrow size in css
+    this.tooltipArrowSize = 5; // Make sure it matches --arrow-size in css
 
     this.tooltipArrow = this.tooltip
       .append("div")
@@ -179,8 +183,7 @@ class ReturnsCashFlowChart {
 
     this.svg.attr("viewBox", [0, 0, this.width, this.height]);
 
-    
-      this._render();
+    this._render();
   }
 
   _wrangle() {
@@ -292,9 +295,7 @@ class ReturnsCashFlowChart {
       this.zeroLineY = this.height - this.marginBottom;
     }
 
-  
-  
-      this._render();
+    this._render();
   }
 
   _setBreakpointEffects() {
@@ -457,11 +458,10 @@ class ReturnsCashFlowChart {
               .attr("fill", "currentColor")
               .attr("rx", this.barBorderRadius)
               .attr("x", -this.barWidth / 2)
-              .attr("y", this.zeroLineY)
               .attr("width", this.barWidth)
-              .attr("height", 0)
           )
       );
+
     barG
       .select(".bar-rect")
       .attr("y", this.zeroLineY)
@@ -477,10 +477,10 @@ class ReturnsCashFlowChart {
           .attr("class", "bar-text")
           .attr("fill", "currentColor")
           .attr("dy", "0.32em")
-          .attr("text-anchor", "middle")     
+          .attr("text-anchor", "middle")
       )
-          .attr("y", this.zeroLineY)
-          .attr("y", (d, i, n) => {
+      .attr("y", this.zeroLineY)
+      .attr("y", (d, i, n) => {
         const p = d3.select(n[i].parentNode).datum();
         if (p.barValue === null) return this.zeroLineY;
         const sign = this.y(p.barValue) > this.zeroLineY ? 1 : -1;
@@ -489,10 +489,8 @@ class ReturnsCashFlowChart {
           sign * (this.barLabelsPadding + i * this.barLabelsRowOffset)
         );
       })
- 
       .attr("class", (d) => `bar-text bar-text--${d.type}`)
       .text((d) => d.text);
-
 
     barG
       .transition(this.transition)
@@ -549,11 +547,11 @@ class ReturnsCashFlowChart {
           .attr("class", (d, i) => `bar-rect series-${i + 1}`)
           .attr("fill", "currentColor")
           .attr("x", -this.barWidth / 2)
-          .attr("width", this.barWidth)     
+          .attr("width", this.barWidth)
       )
-          .attr("y", this.zeroLineY)
-          .attr("height", 0)
-          .attr("rx", this.barBorderRadius);
+      .attr("y", this.zeroLineY)
+      .attr("height", 0)
+      .attr("rx", this.barBorderRadius);
 
     this.yearG
       .transition(this.transition)
