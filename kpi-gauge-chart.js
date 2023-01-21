@@ -52,6 +52,8 @@ class KPIGaugeChart {
   }
 
   _scaffold() {
+    d3.select(this.el).selectAll("*").remove();
+
     this.container = d3
       .select(this.el)
       .append("div")
