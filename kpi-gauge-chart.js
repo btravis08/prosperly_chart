@@ -15,6 +15,7 @@ class KPIGaugeChart {
           setTimeout(() => {
             this._render();
           }, 500);
+          this.io.unobserve(this.el);
         }
       });
     });
@@ -34,7 +35,7 @@ class KPIGaugeChart {
 
     this.x = d3
       .scaleLinear()
-      .domain([0, 100])
+      .domain([0, 1])
       .range([this.gaugeStartAngle, this.gaugeEndAngle]);
 
     this.arcGenerator = ({
@@ -69,6 +70,16 @@ class KPIGaugeChart {
         this.width,
         this.height,
       ]);
+
+    this.plusPath = this.svg
+      .append("path")
+      .attr("class", "plus-path")
+      .attr("transform", "translate(-8,-8)")
+      .attr(
+        "d",
+        "M5.71168 0.597473H9.26208V6.65826H15.0001V9.92176H9.26208V15.9825H5.71168V9.92176H0.00952148V6.65826H5.71168V0.597473Z"
+      )
+      .attr("display", "none");
 
     this.gradeText = this.svg
       .append("text")
@@ -109,15 +120,15 @@ class KPIGaugeChart {
 
   _wrangle() {
     const gradeValue =
-      this.data === null ? 0 : Math.min(Math.max(this.data, 0), 100);
+      this.data === null ? 0 : Math.min(Math.max(this.data, 0), 1);
     let gradeText;
     if (this.data === null) {
-      gradeText = "NA";
-    } else if (gradeValue < 70) {
+      gradeText = "";
+    } else if (gradeValue < 0.7) {
       gradeText = "D";
-    } else if (gradeValue < 80) {
+    } else if (gradeValue < 0.8) {
       gradeText = "C";
-    } else if (gradeValue < 90) {
+    } else if (gradeValue < 0.9) {
       gradeText = "B";
     } else {
       gradeText = "A";
@@ -132,6 +143,8 @@ class KPIGaugeChart {
     if (!this.isInView || !this.displayData) return;
 
     this.svg.attr("class", `grade-${this.displayData.gradeText.toLowerCase()}`);
+
+    this.plusPath.attr("display", this.data === null ? null : "none");
 
     this.gradeText.text(this.displayData.gradeText);
 
