@@ -170,6 +170,7 @@ class ReturnsCashFlowCalculator {
         this.refinanceLoanAmount -
         (this.loanAmount +
           holdingCosts +
+          this.closingCosts +
           this.downPaymentAmount +
           this.rehabCosts);
     }
