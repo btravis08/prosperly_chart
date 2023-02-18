@@ -193,7 +193,9 @@ class ReturnsCashFlowCalculator {
         : Math.round(cashInDealAfterRefinance);
     yearlyData.cashToClose = -Math.round(cashToClose);
     yearlyData.cashToStabilize = -Math.round(cashToStabilize);
-    return yearlyData;
+    
+/* —————— Return both yearly and monthly data —————— */
+    return [yearlyData, monthlyData];
   }
 
   setPurchasePrice(_) {
