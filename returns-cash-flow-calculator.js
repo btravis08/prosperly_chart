@@ -128,6 +128,7 @@ class ReturnsCashFlowCalculator {
         formulajs.POWER(1 + this.expenseGrowth, currentYear - 1);
       
       d.vacancyOverTime = d.rentalIncomeOverTime * this.vacancyRate;
+      d.grossOperatingIncome = d.totalMonthlyIncomeOverTime - d.vacancyOverTime;
       d.totalMonthlyExpensesOverTime =
         d.mortgagePaymentOverTime +
         d.taxesOverTime +
