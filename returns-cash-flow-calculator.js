@@ -69,6 +69,23 @@ class ReturnsCashFlowCalculator {
             currentMonth,
             0
           );
+          d.debtServiceOverTime = -formulajs.PMT(
+            this.interestRate / 12,
+            this.amortization * 12,
+            this.loanAmount
+          );
+          d.debtServicePrincipalOverTime = -formulajs.PPMT(
+            this.interestRate / 12,
+            currentMonth,
+            this.amortization * 12,
+            this.refinanceLoanAmount
+          );
+          d.debtServiceInterestOverTime = -formulajs.IPMT(
+            this.interestRate / 12,
+            currentMonth,
+            this.amortization * 12,
+            this.loanAmount
+          );
       } else {
         d.propertyValueOverTime =
           this.arv *
