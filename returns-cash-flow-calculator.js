@@ -34,7 +34,7 @@ class ReturnsCashFlowCalculator {
             currentMonth,
             0
           );
-          d.mortgagePaymentOverTime = -formulajs.PMT(
+          d.debtServiceOverTime = -formulajs.PMT(
             this.interestRate / 12,
             this.amortization * 12,
             this.loanAmount
@@ -74,7 +74,7 @@ class ReturnsCashFlowCalculator {
             currentMonth - this.timeToRefinance + 1,
             0
           );
-          d.mortgagePaymentOverTime = -formulajs.PMT(
+          d.debtServiceOverTime = -formulajs.PMT(
             this.refinanceInterestRate / 12,
             this.refinanceAmortization * 12,
             this.refinanceLoanAmount
@@ -134,7 +134,7 @@ class ReturnsCashFlowCalculator {
       d.vacancyOverTime = d.rentalIncomeOverTime * this.vacancyRate;
       d.grossOperatingIncomeOverTime = d.totalMonthlyIncomeOverTime - d.vacancyOverTime;
       d.totalMonthlyExpensesOverTime =
-        d.mortgagePaymentOverTime +
+        d.debtServiceOverTime +
         d.taxesOverTime +
         d.insuranceOverTime +
         d.pmiOverTime +
@@ -145,6 +145,7 @@ class ReturnsCashFlowCalculator {
         d.vacancyOverTime;
       d.totalOperatingExpensesOverTime = d.taxesOverTime + d.insuranceOverTime + d.repairsMaintenanceOverTime;
       d.netOperatingIncomeOverTime = d.grossOperatingIncomeOverTime - d.totalOperatingExpensesOverTime;
+      d.cashFlowBeforeDebt = d.grossOperatingIncomeOverTime - d.totalOperatingExpensesOverTime - d.capExOverTime;
       d.rentalCashflowOverTime =
         d.rentalIncomeOverTime - d.totalMonthlyExpensesOverTime;
       d.totalCashflowOverTime =
