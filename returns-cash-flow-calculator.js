@@ -284,7 +284,7 @@ class ReturnsCashFlowCalculator {
   }
 
   setRepairsMaintenanceRate(_) {
-    this.repairsMaintenance = +_ / 100;
+    this.repairsMaintenanceRate = +_ / 100;
     return this;
   }
 
