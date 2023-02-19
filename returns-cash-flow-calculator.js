@@ -143,7 +143,7 @@ class ReturnsCashFlowCalculator {
         d.propertyManagementOverTime +
         d.capExOverTime +
         d.vacancyOverTime;
-      d.totalOperatingExpensesOverTime = d.taxesOverTime + d.insuranceOverTime + d.capExOverTime;
+      d.totalOperatingExpensesOverTime = d.taxesOverTime + d.insuranceOverTime + d.repairsMaintenanceOverTime;
       d.netOperatingIncomeOverTime = d.grossOperatingIncomeOverTime - d.totalOperatingExpensesOverTime;
       d.rentalCashflowOverTime =
         d.rentalIncomeOverTime - d.totalMonthlyExpensesOverTime;
