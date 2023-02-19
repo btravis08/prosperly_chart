@@ -126,8 +126,8 @@ class ReturnsCashFlowCalculator {
         this.repairsMaintenanceRate *
         d.rentalIncomeOverTime *
         formulajs.POWER(1 + this.expenseGrowth, currentYear - 1);
-      d.CapExOverTime =
-        this.CapExRate *
+      d.capExOverTime =
+        this.capExRate *
         d.rentalIncomeOverTime *
         formulajs.POWER(1 + this.expenseGrowth, currentYear - 1);
       
@@ -141,9 +141,9 @@ class ReturnsCashFlowCalculator {
         d.utilitiesOverTime +
         d.otherExpensesOverTime +
         d.propertyManagementOverTime +
-        d.CapExOverTime +
+        d.capExOverTime +
         d.vacancyOverTime;
-      d.totalOperatingExpensesOverTime = d.taxesOverTime + d.insuranceOverTime + d.CapExOverTime;
+      d.totalOperatingExpensesOverTime = d.taxesOverTime + d.insuranceOverTime + d.capExOverTime;
       d.netOperatingIncomeOverTime = d.grossOperatingIncomeOverTime - d.totalOperatingExpensesOverTime;
       d.rentalCashflowOverTime =
         d.rentalIncomeOverTime - d.totalMonthlyExpensesOverTime;
@@ -280,7 +280,7 @@ class ReturnsCashFlowCalculator {
   }
 
   setCapExRate(_) {
-    this.CapExRate = +_ / 100;
+    this.capExRate = +_ / 100;
     return this;
   }
 
