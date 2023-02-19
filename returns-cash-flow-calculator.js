@@ -39,6 +39,18 @@ class ReturnsCashFlowCalculator {
             this.amortization * 12,
             this.loanAmount
           );
+          d.debtServicePrincipalOverTime = -formulajs.PPMT(
+            this.refinanceInterestRate / 12,
+            currentMonth,
+            this.refinanceAmortization * 12,
+            this.refinanceLoanAmount
+          );
+          d.debtServiceInterestOverTime = -formulajs.IPMT(
+            this.refinanceInterestRate / 12,
+            currentMonth,
+            this.refinanceAmortization * 12,
+            this.refinanceLoanAmount
+          );
           
       } else if (currentMonth < this.timeToRefinance) {
         d.propertyValueOverTime =
