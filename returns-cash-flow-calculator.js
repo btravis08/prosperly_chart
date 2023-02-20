@@ -196,6 +196,10 @@ class ReturnsCashFlowCalculator {
         monthlyData.slice(0, i + 1),
         (d) => d.cashFlowAfterDebtOverTime
       );
+      d.yearlyCumulativeCashflowOverTime = d3.sum(
+        monthlyData.filter((d2) => d2.year === d.year && d2.month <= d.month),
+        (d2) => d2.cashFlowAfterDebtOverTime
+      );
       d.totalReturnsOverTime =
         d.accruedEquityOverTime + d.cumulativeCashflowOverTime;
     });
