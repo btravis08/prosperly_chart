@@ -202,6 +202,8 @@ class ReturnsCashFlowCalculator {
       );
       d.totalReturnsOverTime =
         d.accruedEquityOverTime + d.cumulativeCashflowOverTime;
+      d.cocrOverTime = 
+        d.yearlCashFlowOverTime / (this.downPaymentAmount + this.closingCosts);
     });
 
     /* —————— Cash in Deal —————— */
