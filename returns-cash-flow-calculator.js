@@ -191,7 +191,7 @@ class ReturnsCashFlowCalculator {
         d.rentalIncomeOverTime - d.totalMonthlyExpensesOverTime;
       d.totalCashflowOverTime =
         d.rentalCashflowOverTime + d.otherIncomeOverTime;
-
+      d.cashFlowAfterDebtOverTime =  d.cashFlowBeforeDebtOverTime - d.debtServiceOverTime;
       d.cumulativeCashflowOverTime = d3.sum(
         monthlyData.slice(0, i + 1),
         (d) => d.totalCashflowOverTime
