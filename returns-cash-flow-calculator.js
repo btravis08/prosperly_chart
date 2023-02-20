@@ -194,7 +194,7 @@ class ReturnsCashFlowCalculator {
       d.cashFlowAfterDebtOverTime =  d.cashFlowBeforeDebtOverTime - d.debtServiceOverTime;
       d.cumulativeCashflowOverTime = d3.sum(
         monthlyData.slice(0, i + 1),
-        (d) => d.totalCashflowOverTime
+        (d) => d.cashFlowAfterDebtOverTime
       );
       d.totalReturnsOverTime =
         d.accruedEquityOverTime + d.cumulativeCashflowOverTime;
@@ -233,7 +233,7 @@ class ReturnsCashFlowCalculator {
         totalReturns: Math.round(d.totalReturnsOverTime),
         rentalCashflow: Math.round(d.rentalCashflowOverTime),
         otherIncome: Math.round(d.otherIncomeOverTime),
-        totalCashflow: Math.round(d.totalCashflowOverTime),
+        totalCashflow: Math.round(d.cashFlowAfterDebtOverTime),
       }));
     yearlyData.cashInDealAfterRefinance =
       cashInDealAfterRefinance === null
