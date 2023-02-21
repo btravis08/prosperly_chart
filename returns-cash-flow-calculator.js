@@ -196,16 +196,24 @@ class ReturnsCashFlowCalculator {
         monthlyData.slice(0, i + 1),
         (d) => d.cashFlowAfterDebtOverTime
       );
-      d.yearlyCumulativeCashflowOverTime = d3.sum(
+      d.annualCumulativeCashflowOverTime = d3.sum(
         monthlyData.filter((d2) => d2.year === d.year && d2.month <= d.month),
         (d2) => d2.cashFlowAfterDebtOverTime
       );
       d.totalReturnsOverTime =
         d.accruedEquityOverTime + d.cumulativeCashflowOverTime;
+      if (this.refinance === true) {
+          d.holdingCosts = d3.sum(
+            monthlyData.slice(0, this.timeToRefinance),
+            (d) => d.totalMonthlyExpensesOverTime
+          );
+      } else {
+          d.holdingCosts = 0;
+      }
       d.cocrOverTime = 
-        d.yearlyCumulativeCashflowOverTime / (this.downPaymentAmount + this.closingCosts + this.rehabCosts);
+        d.cumulativeCashflowOverTime / (this.downPaymentAmount + this.closingCosts + this.rehabCosts + d.holdingCosts);
       d.cumulativeCocrOverTime = 
-        d.cumulativeCashflowOverTime / (this.downPaymentAmount + this.closingCosts + this.rehabCosts);
+        d.annualCumulativeCashflowOverTime / (this.downPaymentAmount + this.closingCosts + this.rehabCosts + d.holdingCosts);
     });
 
     /* —————— Cash in Deal —————— */
