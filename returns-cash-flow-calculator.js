@@ -211,9 +211,9 @@ class ReturnsCashFlowCalculator {
           d.holdingCosts = 0;
       }
       d.cocrOverTime = 
-        d.cumulativeCashflowOverTime / (this.downPaymentAmount + this.closingCosts + this.rehabCosts + d.holdingCosts);
-      d.cumulativeCocrOverTime = 
         d.annualCumulativeCashflowOverTime / (this.downPaymentAmount + this.closingCosts + this.rehabCosts + d.holdingCosts);
+      d.cumulativeCocrOverTime = 
+        d.cumulativeCashflowOverTime / (this.downPaymentAmount + this.closingCosts + this.rehabCosts + d.holdingCosts);
     });
 
     /* —————— Cash in Deal —————— */
