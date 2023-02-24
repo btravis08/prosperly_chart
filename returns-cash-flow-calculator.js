@@ -24,40 +24,33 @@ class ReturnsCashFlowCalculator {
             formulajs.POWER(1 + this.propertyValueGrowth, 1 / 12),
             currentMonth
           );
-          if (this.loanAmount === 0) {
-            d.loanBalanceOverTime = 0;
-            d.debtServiceOverTime = 0;
-            d.debtServicePrincipalOverTime = 0;
-            d.debtServiceInterestOverTime = 0;
-          } else {
-            d.loanBalanceOverTime =
-              this.loanAmount +
-              formulajs.CUMPRINC(
-              this.interestRate / 12,
-              this.amortization * 12,
-              this.loanAmount,
-              1,
-              currentMonth,
-              0
-              );
-            d.debtServiceOverTime = -formulajs.PMT(
-              this.interestRate / 12,
-              this.amortization * 12,
-              this.loanAmount
-            );
-            d.debtServicePrincipalOverTime = -formulajs.PPMT(
-              this.interestRate / 12,
-              currentMonth,
-              this.amortization * 12,
-              this.refinanceLoanAmount
-            );
-            d.debtServiceInterestOverTime = -formulajs.IPMT(
-              this.interestRate / 12,
-              currentMonth,
-              this.amortization * 12,
-              this.loanAmount
-            );
-         }
+        d.loanBalanceOverTime =
+          this.loanAmount +
+          formulajs.CUMPRINC(
+            this.interestRate / 12,
+            this.amortization * 12,
+            this.loanAmount,
+            1,
+            currentMonth,
+            0
+          );
+          d.debtServiceOverTime = -formulajs.PMT(
+            this.interestRate / 12,
+            this.amortization * 12,
+            this.loanAmount
+          );
+          d.debtServicePrincipalOverTime = -formulajs.PPMT(
+            this.interestRate / 12,
+            currentMonth,
+            this.amortization * 12,
+            this.refinanceLoanAmount
+          );
+          d.debtServiceInterestOverTime = -formulajs.IPMT(
+            this.interestRate / 12,
+            currentMonth,
+            this.amortization * 12,
+            this.loanAmount
+          );
           
       } else if (currentMonth < this.timeToRefinance) {
         d.propertyValueOverTime =
@@ -66,44 +59,33 @@ class ReturnsCashFlowCalculator {
             formulajs.POWER(1 + this.propertyValueGrowth, 1 / 12),
             currentMonth
           );
-        if (this.loanAmount === 0) {
-            d.loanBalanceOverTime = 0;
-            d.debtServiceOverTime = 0;
-            d.debtServicePrincipalOverTime = 0;
-            d.debtServiceInterestOverTime = 0;
-          } else {
-          
-            d.loanBalanceOverTime =
-              this.loanAmount +
-              formulajs.CUMPRINC(
-              this.interestRate / 12,
-              this.amortization * 12,
-              this.loanAmount,
-              1,
-              currentMonth,
-              0
-            );
-            d.debtServiceOverTime = -formulajs.PMT(
-              this.interestRate / 12,
-              this.amortization * 12,
-              this.loanAmount
-            );
-            d.debtServicePrincipalOverTime = -formulajs.PPMT(
-              this.interestRate / 12,
-              currentMonth,
-              this.amortization * 12,
-              this.refinanceLoanAmount
-            );
-            d.debtServiceInterestOverTime = -formulajs.IPMT(
-              this.interestRate / 12,
-              currentMonth,
-              this.amortization * 12,
-              this.loanAmount
-            );
-
-          }
-
-        
+        d.loanBalanceOverTime =
+          this.loanAmount +
+          formulajs.CUMPRINC(
+            this.interestRate / 12,
+            this.amortization * 12,
+            this.loanAmount,
+            1,
+            currentMonth,
+            0
+          );
+          d.debtServiceOverTime = -formulajs.PMT(
+            this.interestRate / 12,
+            this.amortization * 12,
+            this.loanAmount
+          );
+          d.debtServicePrincipalOverTime = -formulajs.PPMT(
+            this.interestRate / 12,
+            currentMonth,
+            this.amortization * 12,
+            this.refinanceLoanAmount
+          );
+          d.debtServiceInterestOverTime = -formulajs.IPMT(
+            this.interestRate / 12,
+            currentMonth,
+            this.amortization * 12,
+            this.loanAmount
+          );
       } else {
         d.propertyValueOverTime =
           this.arv *
