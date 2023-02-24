@@ -24,9 +24,12 @@ class ReturnsCashFlowCalculator {
             formulajs.POWER(1 + this.propertyValueGrowth, 1 / 12),
             currentMonth
           );
-        d.loanBalanceOverTime =
-          this.loanAmount +
-          formulajs.CUMPRINC(
+        if (this.loanAmount === 0) {
+          d.loanBalanceOverTime = 0;
+        } else {
+          d.loanBalanceOverTime =
+            this.loanAmount +
+            formulajs.CUMPRINC(
             this.interestRate / 12,
             this.amortization * 12,
             this.loanAmount,
@@ -51,6 +54,9 @@ class ReturnsCashFlowCalculator {
             this.amortization * 12,
             this.loanAmount
           );
+        }
+        
+          
           
       } else if (currentMonth < this.timeToRefinance) {
         d.propertyValueOverTime =
@@ -59,6 +65,9 @@ class ReturnsCashFlowCalculator {
             formulajs.POWER(1 + this.propertyValueGrowth, 1 / 12),
             currentMonth
           );
+        if (this.loanAmount === 0) {
+          d.loanBalanceOverTime = 0;
+        } else {
         d.loanBalanceOverTime =
           this.loanAmount +
           formulajs.CUMPRINC(
@@ -69,7 +78,7 @@ class ReturnsCashFlowCalculator {
             currentMonth,
             0
           );
-          d.debtServiceOverTime = -formulajs.PMT(
+        d.debtServiceOverTime = -formulajs.PMT(
             this.interestRate / 12,
             this.amortization * 12,
             this.loanAmount
@@ -86,6 +95,8 @@ class ReturnsCashFlowCalculator {
             this.amortization * 12,
             this.loanAmount
           );
+        }
+          
       } else {
         d.propertyValueOverTime =
           this.arv *
