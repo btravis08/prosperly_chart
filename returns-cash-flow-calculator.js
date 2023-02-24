@@ -7,7 +7,7 @@ class ReturnsCashFlowCalculator {
     }));
 
     monthlyData.forEach((d, i) => {
-      const currentMonth = d.month;f
+      const currentMonth = d.month;
       const currentYear = d.year;
 
       /* —————— Total Returns Graph  —————— */
