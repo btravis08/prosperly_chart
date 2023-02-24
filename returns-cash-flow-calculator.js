@@ -260,6 +260,7 @@ class ReturnsCashFlowCalculator {
     
 /* —————— Return both yearly and monthly data —————— */
     return [yearlyData, monthlyData];
+    console.log(yearlyData);
   }
 
   setPurchasePrice(_) {
