@@ -65,8 +65,8 @@ class ReturnsCashFlowChart {
         [
           {
             name: "Cum. Cash Flow",
-            value: (d) => d.cumulativeTotalCashflow,
-            barValue: (d) => d.accruedEquity + d.cumulativeTotalCashflow,
+            value: (d) => d.cumulativeCashflowOverTime,
+            barValue: (d) => d.accruedEquity + d.cumulativeCashflowOverTime,
           },
           {
             name: "Equity",
