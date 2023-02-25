@@ -26,18 +26,18 @@ class ReturnsCashFlowCalculator {
           );
           if (this.loanAmount === 0) {
             d.loanBalanceOverTime = 0;
-          } else {
+            } else {
             d.loanBalanceOverTime =
-              this.loanAmount +
-              formulajs.CUMPRINC(
-              this.interestRate / 12,
-              this.amortization * 12,
-              this.loanAmount,
-              1,
-              currentMonth,
-              0
-              );      
-         }        
+            this.loanAmount +
+            formulajs.CUMPRINC(
+            this.interestRate / 12,
+            this.amortization * 12,
+            this.loanAmount,
+            1,
+            currentMonth,
+            0
+            );
+            }
       } else if (currentMonth < this.timeToRefinance) {
         d.propertyValueOverTime =
           this.purchasePrice *
@@ -45,20 +45,20 @@ class ReturnsCashFlowCalculator {
             formulajs.POWER(1 + this.propertyValueGrowth, 1 / 12),
             currentMonth
           );
-        if (this.loanAmount === 0) {
-            d.loanBalanceOverTime = 0;           
-          } else {
+          if (this.loanAmount === 0) {
+            d.loanBalanceOverTime = 0;
+            } else {
             d.loanBalanceOverTime =
-              this.loanAmount +
-              formulajs.CUMPRINC(
-              this.interestRate / 12,
-              this.amortization * 12,
-              this.loanAmount,
-              1,
-              currentMonth,
-              0
+            this.loanAmount +
+            formulajs.CUMPRINC(
+            this.interestRate / 12,
+            this.amortization * 12,
+            this.loanAmount,
+            1,
+            currentMonth,
+            0
             );
-          }      
+            }
       } else {
         d.propertyValueOverTime =
           this.arv *
@@ -75,7 +75,7 @@ class ReturnsCashFlowCalculator {
             1,
             currentMonth - this.timeToRefinance + 1,
             0
-          );     
+          );
       }
 
       d.accruedEquityOverTime = d.propertyValueOverTime - d.loanBalanceOverTime;
@@ -145,22 +145,12 @@ class ReturnsCashFlowCalculator {
         formulajs.POWER(1 + this.expenseGrowth, currentYear - 1);
       d.vacancyOverTime = d.totalMonthlyIncomeOverTime * this.vacancyRate;
       d.grossOperatingIncomeOverTime = d.totalMonthlyIncomeOverTime - d.vacancyOverTime;
-      d.totalMonthlyExpensesOverTime =
-        d.debtServiceOverTime +
-        d.taxesOverTime +
-        d.insuranceOverTime +
-        d.pmiOverTime +
-        d.utilitiesOverTime +
-        d.otherExpensesOverTime +
-        d.propertyManagementOverTime +
-        d.capExOverTime +
-        d.maintenanceRepairsOverTime +
-        d.vacancyOverTime;
-      d.totalOperatingExpensesOverTime = d.taxesOverTime + d.insuranceOverTime + d.maintenanceRepairsOverTime;
+      
+      d.totalOperatingExpensesOverTime = d.capExOverTime + d.taxesOverTime + d.otherExpensesOverTime + d.insuranceOverTime + d.pmiOverTime + d.maintenanceRepairsOverTime;
       d.netOperatingIncomeOverTime = d.grossOperatingIncomeOverTime - d.totalOperatingExpensesOverTime;
       d.cashFlowBeforeDebtOverTime = d.netOperatingIncomeOverTime - d.capExOverTime;
       d.rentalCashflowOverTime =
-        d.rentalIncomeOverTime - d.totalMonthlyExpensesOverTime;
+        d.rentalIncomeOverTime - d.capExOverTime - d.debtServiceOverTime - d.totalOperatingExpensesOverTime - d.vacancyOverTime;
       d.totalCashflowOverTime =
         d.rentalCashflowOverTime + d.otherIncomeOverTime;
       d.cashFlowAfterDebtOverTime =  d.cashFlowBeforeDebtOverTime - d.debtServiceOverTime;
@@ -174,10 +164,10 @@ class ReturnsCashFlowCalculator {
       );
       d.totalReturnsOverTime =
         d.accruedEquityOverTime + d.cumulativeCashflowOverTime;
-      if (this.refinance === true) {
+        if (this.refinance === true) {
           d.holdingCosts = d3.sum(
             monthlyData.slice(0, this.timeToRefinance),
-            (d) => d.totalMonthlyExpensesOverTime
+            (d) => d.totalOperatingExpensesOverTime + d.utilitiesOverTime + d.debtServiceOverTime
           );
       } else {
           d.holdingCosts = 0;
@@ -195,7 +185,7 @@ class ReturnsCashFlowCalculator {
     if (this.refinance === true) {
       holdingCosts = d3.sum(
         monthlyData.slice(0, this.timeToRefinance),
-        (d) => d.totalMonthlyExpensesOverTime
+        (d) => d.totalOperatingExpensesOverTime + d.utilitiesOverTime + d.debtServiceOverTime
       );
     }
     let cashToStabilize = holdingCosts + this.rehabCosts;
@@ -229,8 +219,8 @@ class ReturnsCashFlowCalculator {
         : Math.round(cashInDealAfterRefinance);
     yearlyData.cashToClose = -Math.round(cashToClose);
     yearlyData.cashToStabilize = -Math.round(cashToStabilize);
-    
-/* —————— Return both yearly and monthly data —————— */
+
+    /* —————— Return both yearly and monthly data —————— */
     return [yearlyData, monthlyData];
   }
 
@@ -341,7 +331,7 @@ class ReturnsCashFlowCalculator {
     this.refinanceLoanAmount = +_;
     return this;
   }
-  
+    
   setLtv(_) {
     this.ltv = +_;
     return this;
