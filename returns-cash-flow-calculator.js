@@ -136,8 +136,8 @@ class ReturnsCashFlowCalculator {
       d.propertyManagementOverTime =
         this.propertyManagementFee * d.totalMonthlyIncomeOverTime;
       d.maintenanceRepairsOverTime =
-        this.maintenanceRepairsRate *
-        d.totalMonthlyIncomeOverTime *
+        this.maintenanceRepairsRate/12 *
+        d.propertyValueOverTime *
         formulajs.POWER(1 + this.expenseGrowth, currentYear - 1);
       d.capExOverTime =
         this.capExRate *
