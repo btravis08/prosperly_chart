@@ -95,18 +95,23 @@ window.addEventListener("load", async () => {
     returnsCashFlowChart.setData(data).setChartType(selectedChartType).update();
     updateMobileReturnsCashFlowChartContent();
 
-const updateCashFlow = async (fieldName, setMethod) => {    
-  const fieldValue = await Wized.data.get(fieldName);
-  const isInputActive = document.activeElement === document.querySelector(`#${fieldName}`);
-  if (!isInputActive) {
-    console.log(`Value of ${fieldName} changed to: `, fieldValue);
-    const [data, monthlyData] = returnsCashFlowCalculator[setMethod](fieldValue).calculate();
-    returnsCashFlowChart.setData(data).update();
-  }
-};
-
-Wized.data.listen("i.input_purchase_price", () => updateCashFlow("i.input_purchase_price", "setPurchasePrice"));
-Wized.data.listen("i.input_arv", () => updateCashFlow("i.input_arv", "setArv"));
+    // Listen for form input changes and re-render chart
+    Wized.data.listen("i.input_purchase_price", async () => {    
+      const purchasePrice = await Wized.data.get("i.input_purchase_price");   
+      console.log("Value of i.input_purchase_price changed to: ", purchasePrice);
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setPurchasePrice(purchasePrice)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
+      
+    Wized.data.listen("i.input_down_payment", async () => {
+      const downPaymentAmount = i.input_down_payment / 100 * purchasePrice 
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setDownPaymentAmount(downPaymentAmount)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
 
     // Set up chart type control
     document
