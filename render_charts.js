@@ -105,8 +105,8 @@ window.addEventListener("load", async () => {
       returnsCashFlowChart.setData(data).update();
     });
       
-    Wized.data.listen("i.input_down_payment", async () => {
-      const downPaymentAmount = i.input_down_payment / 100 * purchasePrice 
+    Wized.data.listen("i.input_down_payment_30", async () => {
+      const downPaymentAmount = i.input_down_payment_30 / 100 * purchasePrice 
       const [data, monthlyData] = returnsCashFlowCalculator
       .setDownPaymentAmount(downPaymentAmount)
       .calculate();
