@@ -1,4 +1,3 @@
-<script>
 window.addEventListener("load", async () => {
   Wized.request.awaitAllPageLoad(async () => {
     let [
@@ -211,4 +210,4 @@ Wized.data.listen("i.input_arv", () => updateCashFlow("i.input_arv", "setArv"));
   });
 	
 });
-</script>
+
