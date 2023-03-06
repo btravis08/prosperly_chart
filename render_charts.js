@@ -171,6 +171,51 @@ window.addEventListener("load", async () => {
       returnsCashFlowChart.setData(data).update();
     });
 
+    Wized.data.listen("i.input_refinance", async () => {
+      const refinance = await Wized.data.get("i.input_refinance");
+      console.log("Refinance:", refinance);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setRefinance(refinance)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
+	  
+    Wized.data.listen("i.input_time_to_refinance", async () => {
+      const timeToRefinance = await Wized.data.get("i.input_time_to_refinance");
+      console.log("Value of i.input_time_to_refinance changed to: ", timeToRefinance);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setTimeToRefinance(timeToRefinance)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
+	  
+    Wized.data.listen("i.input_ltv", async () => {
+      const ltv = await Wized.data.get("i.input_ltv");
+      console.log("Value of i.input_ltv changed to: ", ltv);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setLtv(ltv)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
+
+    Wized.data.listen("i.input_refi_amortization_value", async () => {
+      const refinanceAmortization = await Wized.data.get("i.input_refi_amortization_value");
+      console.log("Value of i.input_refi_amortization_value changed to: ", refinanceAmortization);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setRefinanceAmortization(refinanceAmortization)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
+	  
+    Wized.data.listen("i.input_refi_interest_rate", async () => {
+      const refinanceInterestRate = await Wized.data.get("i.input_refi_interest_rate");
+      console.log("Value of i.input_refi_interest_rate changed to: ", refinanceInterestRate);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setRefinanceInterestRate(refinanceInterestRate)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
+
 
     // Set up chart type control
     document
