@@ -108,6 +108,8 @@ window.addEventListener("load", async () => {
     Wized.data.listen("i.input_down_payment_30", async () => {
       const downPaymentAmount = await Wized.data.get("i.input_down_payment_30") / 100 * purchasePrice;
       const loanAmount = purchasePrice - downPaymentAmount;
+      console.log("Down Payment Amount:", downPaymentAmount);
+      console.log("Loan Amount:", loanAmount);        
       const [data, monthlyData] = returnsCashFlowCalculator
       .setDownPaymentAmount(downPaymentAmount)
       .setLoanAmount(loanAmount)
