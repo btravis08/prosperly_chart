@@ -2,15 +2,11 @@ window.addEventListener("load", async () => {
   Wized.request.awaitAllPageLoad(async () => {
     let [
       report,
-      loanAmount,
-      downPaymentAmount,
       refinanceLoanAmount,
       cashOutPotential,
       utilities
     ] = await Promise.all([
       Wized.data.get("r.7.d.report"),
-      Wized.data.get("r.7.d.loan_amount"),
-      Wized.data.get("r.7.d.down_payment_cash"),
       Wized.data.get("r.7.d.refi_loan_amount"),
       Wized.data.get("r.7.d.cash_out_potential"),
       Wized.data.get("r.7.d.total_utilities")
@@ -19,7 +15,6 @@ window.addEventListener("load", async () => {
     let {
       mortgage,
       down_payment: downPayment,
-      
       purchase_price: purchasePrice,
       downPaymentAmount = downPayment/100*purchasePrice,
       loanAmount = purchasePrice - downPaymentAmount,
