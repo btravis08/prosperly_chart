@@ -17,7 +17,12 @@ window.addEventListener("load", async () => {
     ]);
 
     let {
+      mortgage,
+      down_payment: downPayment,
+      
       purchase_price: purchasePrice,
+      downPaymentAmount = downPayment/100*purchasePrice,
+      loanAmount = purchasePrice - downPaymentAmount,
       closing_costs: closingCosts,
       interest_rate: interestRate,
       amortization,
@@ -43,7 +48,7 @@ window.addEventListener("load", async () => {
       expense_growth: expenseGrowth,
       property_tax_growth: propertyTaxGrowth,
     } = report;
-
+    console.log(downPaymentAmount);
     let pmi = 1.0;
 
     // Initialize calculator
@@ -63,8 +68,8 @@ window.addEventListener("load", async () => {
       .setPmi(pmi)
       .setPropertyManagementFee(propertyManagementFee)
       .setUtilities(utilities)
-			.setMaintenanceRepairsRate(maintenanceRepairsRate)
-			.setCapExRate(capExRate)
+      .setMaintenanceRepairsRate(maintenanceRepairsRate)
+      .setCapExRate(capExRate)
       .setOtherExpenses(otherExpenses)
       .setVacancyRate(vacancyRate)
       .setRefinance(refinance)
