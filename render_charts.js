@@ -1,3 +1,4 @@
+<script>
 window.addEventListener("load", async () => {
   Wized.request.awaitAllPageLoad(async () => {
     let [
@@ -28,7 +29,8 @@ window.addEventListener("load", async () => {
       annual_property_taxes: propertyTaxRate,
       monthly_insurance: propertyInsurance,
       management_fees: propertyManagementFee,
-      capital_expenses: maintenanceCapExRate,
+      repairs_maintenance: maintenanceRepairsRate,
+      capital_expenses: capExRate,
       other_monthly_costs: otherExpenses,
       vacancy: vacancyRate,
       refinance,
@@ -62,7 +64,8 @@ window.addEventListener("load", async () => {
       .setPmi(pmi)
       .setPropertyManagementFee(propertyManagementFee)
       .setUtilities(utilities)
-      .setMaintenanceCapExRate(maintenanceCapExRate)
+			.setMaintenanceRepairsRate(maintenanceRepairsRate)
+			.setCapExRate(capExRate)
       .setOtherExpenses(otherExpenses)
       .setVacancyRate(vacancyRate)
       .setRefinance(refinance)
@@ -78,8 +81,9 @@ window.addEventListener("load", async () => {
       .setExpenseGrowth(expenseGrowth)
       .setPropertyTaxGrowth(propertyTaxGrowth);
 
-    const data = returnsCashFlowCalculator.calculate();
-    console.log("data", data);
+    const [data, monthlyData] = returnsCashFlowCalculator.calculate();
+      console.log("data", data);
+      console.log("monthlyData", monthlyData);
 
     // Keep track of selected chart type
     let selectedChartType = "returns";
@@ -89,6 +93,19 @@ window.addEventListener("load", async () => {
     );
     returnsCashFlowChart.setData(data).setChartType(selectedChartType).update();
     updateMobileReturnsCashFlowChartContent();
+
+const updateCashFlow = async (fieldName, setMethod) => {    
+  const fieldValue = await Wized.data.get(fieldName);
+  const isInputActive = document.activeElement === document.querySelector(`#${fieldName}`);
+  if (!isInputActive) {
+    console.log(`Value of ${fieldName} changed to: `, fieldValue);
+    const [data, monthlyData] = returnsCashFlowCalculator[setMethod](fieldValue).calculate();
+    returnsCashFlowChart.setData(data).update();
+  }
+};
+
+Wized.data.listen("i.input_purchase_price", () => updateCashFlow("i.input_purchase_price", "setPurchasePrice"));
+Wized.data.listen("i.input_arv", () => updateCashFlow("i.input_arv", "setArv"));
 
     // Set up chart type control
     document
@@ -120,45 +137,64 @@ window.addEventListener("load", async () => {
       switch (selectedChartType) {
         case "returns":
           {
-            // Returns chart code goes here
+            //document.querySelector("#chartName").textContent = d.total.name;
+            document.querySelector("#chartTotal").textContent = formatValue(d.total.value);
+            document.querySelector("#chartYear").textContent = d.year;
+      document.querySelector("#atYear").textContent = "at year";
+      document.querySelector("#chartValue0").textContent = `${
+      d.values[0].name
+      }: ${formatValue(d.values[0].value)}`;
+      document.querySelector("#chartValue1").textContent = `${
+      d.values[1].name
+      }: ${formatValue(d.values[1].value)}`;
+      document.querySelector("#circle_0").textContent = "circle";
+      document.querySelector("#circle_1").textContent = "circle";
+      document.querySelector("#chartLTV").style.display = "none";
           }
           break;
         case "cashFlow":
           {
-            // Cash flow chart code goes here
+            document.querySelector("#chartName").textContent = d.total.name;
+            document.querySelector("#chartTotal").textContent = formatValue(d.total.value);
+            document.querySelector("#chartYear").textContent = d.year;
+      document.querySelector("#atYear").textContent = "at year";
+      document.querySelector("#chartValue0").textContent = `${
+      d.values[0].name
+      }: ${formatValue(d.values[0].value)}`;
+      document.querySelector("#chartValue1").textContent = `${
+      d.values[1].name
+      }: ${formatValue(d.values[1].value)}`;
+      document.querySelector("#circle_0").textContent = "circle";
+      document.querySelector("#circle_1").textContent = "circle";
+      document.querySelector("#chartLTV").style.display = "none";
           }
           break;
         case "cashInDeal":
           {
-            // Cash in deal chart code goes here
+            document.querySelector("#chartYear").textContent = "";
+                            if (data.cashInDealAfterRefinance === null || data.cashInDealAfterRefinance < 0) {
+                                document.querySelector("#chartLTV").style.display = 'none';
+                                document.querySelector("#chartName").textContent = "Cash In deal";
+                                document.querySelector("#atYear").textContent = "after stabilizing";
+                                document.querySelector("#chartTotal").textContent = `${formatValue((data.cashToClose + data.cashToStabilize))}`;
+                            } else {
+                                document.querySelector("#atYear").textContent = "after refinance";
+                                document.querySelector("#chartTotal").textContent = `${formatValue(data.cashInDealAfterRefinance)}`;
+                                document.querySelector("#chartName").textContent = "Cash out";
+                            };
+                            document.querySelector("#chartLTV").style.display = 'block';
+                            document.querySelector("#chartLTV").textContent = `Max cash out amount with ${(ltv)}% LTV`;
+                            document.querySelector("#chartValue0").textContent = "";
+                            document.querySelector("#chartValue1").textContent = "";
+                            document.querySelector("#circle_0").textContent = "";
+                            document.querySelector("#circle_1").textContent = "";
           }
           break;
         default:
           break;
       }
 
-      // These are your original codes, you should put these the three code blocks according to the current selected chart type
-
-      //  document.querySelector("#chartName").textContent = d.total.name;
-      //  document.querySelector("#chartTotal").textContent = formatValue(
-      //    d.total.value
-      //  );
-
-      //  document.querySelector("#chartYear").textContent = d.year;
-      //  document.querySelector("#atYear").textContent = "at year";
-      //  document.querySelector("#chartValue0").textContent = `${
-      //    d.values[0].name
-      //  }: ${formatValue(d.values[0].value)}`;
-      //  document.querySelector("#chartValue1").textContent = `${
-      //    d.values[1].name
-      //  }: ${formatValue(d.values[1].value)}`;
-      //  document.querySelector("#circle_0").textContent = "circle";
-      //  document.querySelector("#circle_1").textContent = "circle";
-      //  document.querySelector("#chartLTV").style.display = "none";
-
-      
     }
-
     const kpiDataArray = await Wized.data.get("r.7.d.kpi_array");
     kpiDataArray.forEach((kpiData, i) => {
       new KPIGaugeChart(document.querySelector(`#kpiGaugeChart${i}`))
@@ -166,7 +202,6 @@ window.addEventListener("load", async () => {
         .update();
         console.log(kpiData.score);
     });
-
     const ratioDataArray = await Wized.data.get("r.7.d.ratio_array");
     ratioDataArray.forEach((ratioData, i) => {
       new KPIGaugeChart(document.querySelector(`#ratioGaugeChart${i}`))
@@ -174,4 +209,6 @@ window.addEventListener("load", async () => {
         .update();
     });
   });
+	
 });
+</script>
