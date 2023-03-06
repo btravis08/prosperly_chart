@@ -2,14 +2,10 @@ window.addEventListener("load", async () => {
   Wized.request.awaitAllPageLoad(async () => {
     let [
       report,
-      refinanceLoanAmount,
       cashOutPotential,
-      utilities
     ] = await Promise.all([
       Wized.data.get("r.7.d.report"),
-      Wized.data.get("r.7.d.refi_loan_amount"),
       Wized.data.get("r.7.d.cash_out_potential"),
-      Wized.data.get("r.7.d.total_utilities")
     ]);
 
     let {
@@ -35,8 +31,14 @@ window.addEventListener("load", async () => {
       refinance,
       arv,
       refi_ltv: ltv,
+      refinanceLoanAmount = arv*ltv/100,
       refi_interest_rate: refinanceInterestRate,
       refi_amortization: refinanceAmortization,
+      gas,
+      water_sewer,
+      electricity,
+      trash,
+      utilities = gas + water_sewer + electricity + trash,    
       months_to_refinance: timeToRefinance,
       income_growth: incomeGrowth,
       pv_growth: propertyValueGrowth,
