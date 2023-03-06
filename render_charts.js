@@ -96,11 +96,65 @@ window.addEventListener("load", async () => {
     updateMobileReturnsCashFlowChartContent();
 
     // Listen for form input changes and re-render chart
+    Wized.data.listen("i.input_mortgage", async () => {    
+      const mortgage = await Wized.data.get("i.input_mortgage");   
+      console.log("Value of i.input_mortgage changed to: ", mortgage);
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setMortgage(mortgage)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
+
     Wized.data.listen("i.input_purchase_price", async () => {    
       const purchasePrice = await Wized.data.get("i.input_purchase_price");   
       console.log("Value of i.input_purchase_price changed to: ", purchasePrice);
       const [data, monthlyData] = returnsCashFlowCalculator
       .setPurchasePrice(purchasePrice)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
+
+    Wized.data.listen("i.input_arv", async () => {    
+      const arv = await Wized.data.get("i.input_arv");   
+      console.log("Value of i.input_arv changed to: ", arv);
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setArv(arv)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
+    
+    Wized.data.listen("i.input_amortization_value", async () => {    
+      const amortization = await Wized.data.get("i.input_amortization_value");   
+      console.log("Value of i.input_amortization_value changed to: ", amortization);
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setAmortization(amortization)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
+
+    Wized.data.listen("i.input_interest_rate", async () => {    
+      const interestRate = await Wized.data.get("i.input_interest_rate");   
+      console.log("Value of i.input_amortization changed to: ", interestRate);
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setInterestRate(interestRate)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
+	  
+    Wized.data.listen("i.input_closing_costs", async () => {    
+      const closingCosts = await Wized.data.get("i.input_closing_costs");   
+      console.log("Value of i.input_closing_costs changed to: ", closingCosts);
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setClosingCosts(closingCosts)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
+	  
+    Wized.data.listen("i.input_rehab_costs", async () => {    
+      const rehabCosts = await Wized.data.get("i.input_rehab_costs");   
+      console.log("Value of i.input_rehab_costs changed to: ", rehabCosts);
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setRehabCosts(rehabCosts)
       .calculate();
       returnsCashFlowChart.setData(data).update();
     });
