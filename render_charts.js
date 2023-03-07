@@ -119,13 +119,13 @@ window.addEventListener("load", async () => {
     });
 
     Wized.data.listen("i.input_arv", async () => {    
-      const arv = await Wized.data.get("i.input_arv");   
-      console.log("Value of i.input_arv changed to: ", arv);
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setArv(arv)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      await Wized.data.setVariable("data", data);
+  	const arv = await Wized.data.get("i.input_arv");   
+  	console.log("Value of i.input_arv changed to: ", arv);
+  	const [data, monthlyData] = returnsCashFlowCalculator
+    	.setArv(arv)
+    	.calculate();
+	await Wized.data.setVariable("data", data);
+	returnsCashFlowChart.setData(data).update();
     });
     
     Wized.data.listen("i.input_amortization_value", async () => {    
