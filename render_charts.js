@@ -39,14 +39,14 @@ window.addEventListener("load", async () => {
       water_sewer: waterSewer,
       electricity,
       trash,
-      utilities = gas + water_sewer + electricity + trash,    
+      utilities = gas + waterSewer + electricity + trash,    
       months_to_refinance: timeToRefinance,
       income_growth: incomeGrowth,
       pv_growth: propertyValueGrowth,
       expense_growth: expenseGrowth,
       property_tax_growth: propertyTaxGrowth,
     } = report;
-    console.log(downPaymentAmount);
+
     let pmi = 1.0;
 
     // Initialize calculator
