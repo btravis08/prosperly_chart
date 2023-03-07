@@ -107,6 +107,7 @@ window.addEventListener("load", async () => {
       .setMortgage(mortgage)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });
 
     Wized.data.listen("i.input_purchase_price", async () => {    
@@ -116,6 +117,7 @@ window.addEventListener("load", async () => {
       .setPurchasePrice(purchasePrice)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });
 
     Wized.data.listen("i.input_arv", async () => {    
@@ -125,6 +127,7 @@ window.addEventListener("load", async () => {
     	.setArv(arv)
     	.calculate();
 	returnsCashFlowChart.setData(data).update(); 
+      Wized.data.setVariable("data", data); 
     });
     
     Wized.data.listen("i.input_amortization_value", async () => {    
@@ -134,6 +137,7 @@ window.addEventListener("load", async () => {
       .setAmortization(amortization)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });
 
     Wized.data.listen("i.input_interest_rate", async () => {    
@@ -143,6 +147,7 @@ window.addEventListener("load", async () => {
       .setInterestRate(interestRate)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });
 	  
     Wized.data.listen("i.input_closing_costs", async () => {    
@@ -152,6 +157,7 @@ window.addEventListener("load", async () => {
       .setClosingCosts(closingCosts)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });
 	  
     Wized.data.listen("i.input_rehab_costs", async () => {    
@@ -161,6 +167,7 @@ window.addEventListener("load", async () => {
       .setRehabCosts(rehabCosts)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });
 
     Wized.data.listen("i.input_rehab_in_months", async () => {    
@@ -170,6 +177,7 @@ window.addEventListener("load", async () => {
       .setRehabInMonths(rehabInMonths)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });
       
     Wized.data.listen("i.input_down_payment_30", async () => {
@@ -182,6 +190,7 @@ window.addEventListener("load", async () => {
       .setLoanAmount(loanAmount)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });
 
     Wized.data.listen("i.input_refinance", async () => {
@@ -191,6 +200,7 @@ window.addEventListener("load", async () => {
       .setRefinance(refinance)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });
 	  
     Wized.data.listen("i.input_time_to_refinance", async () => {
@@ -200,6 +210,7 @@ window.addEventListener("load", async () => {
       .setTimeToRefinance(timeToRefinance)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });
 	  
     Wized.data.listen("i.input_ltv", async () => {
@@ -209,6 +220,7 @@ window.addEventListener("load", async () => {
       .setLtv(ltv)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });
 
     Wized.data.listen("i.input_refi_amortization_value", async () => {
@@ -218,6 +230,7 @@ window.addEventListener("load", async () => {
       .setRefinanceAmortization(refinanceAmortization)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });
 	  
     Wized.data.listen("i.input_refi_interest_rate", async () => {
@@ -227,6 +240,7 @@ window.addEventListener("load", async () => {
       .setRefinanceInterestRate(refinanceInterestRate)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });
 	  
     Wized.data.listen("i.input_rental_income", async () => {
@@ -246,6 +260,7 @@ window.addEventListener("load", async () => {
       .setOtherIncome(otherIncome)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });
 	  
     Wized.data.listen("i.input_vacancy", async () => {
@@ -255,6 +270,7 @@ window.addEventListener("load", async () => {
       .setVacancyRate(vacancyRate)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });
 	  
     Wized.data.listen("i.input_repairs_maintenance", async () => {
@@ -264,6 +280,7 @@ window.addEventListener("load", async () => {
       .setMaintenanceRepairsRate(maintenanceRepairsRate)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });	  
 
     Wized.data.listen("i.input_cap_ex", async () => {
@@ -273,6 +290,7 @@ window.addEventListener("load", async () => {
       .setCapExRate(capExRate)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });	
 
     Wized.data.listen("i.input_management", async () => {
@@ -282,6 +300,7 @@ window.addEventListener("load", async () => {
       .setPropertyManagementFee(propertyManagementFee)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });	  
 
     Wized.data.listen("i.input_electricity", async () => {
@@ -291,6 +310,7 @@ window.addEventListener("load", async () => {
       .setElectricity(electricity)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });	  
 
     Wized.data.listen("i.input_water_sewer", async () => {
@@ -300,6 +320,7 @@ window.addEventListener("load", async () => {
       .setElectricity(electricity)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });	  	
 
     Wized.data.listen("i.input_gas", async () => {
@@ -309,6 +330,7 @@ window.addEventListener("load", async () => {
       .setGas(gas)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });	 
 
 
@@ -319,6 +341,7 @@ window.addEventListener("load", async () => {
       .setTrash(trash)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });	
     
     Wized.data.listen("i.input_property_insurance", async () => {
@@ -328,6 +351,7 @@ window.addEventListener("load", async () => {
       .setPropertyInsurance(propertyInsurance)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });	
 
     Wized.data.listen("i.input_other_expenses", async () => {
@@ -337,6 +361,7 @@ window.addEventListener("load", async () => {
       .setOtherExpenses(otherExpenses)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });	
 
     Wized.data.listen("i.input_property_tax_rate", async () => {
@@ -346,6 +371,7 @@ window.addEventListener("load", async () => {
       .setPropertyTaxRate(propertyTaxRate)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });	
 
     Wized.data.listen("i.input_hoa", async () => {
@@ -355,6 +381,7 @@ window.addEventListener("load", async () => {
       .setHoa(hoa)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });	
 
     Wized.data.listen("i.input_income_growth", async () => {
@@ -364,6 +391,7 @@ window.addEventListener("load", async () => {
       .setIncomeGrowth(incomeGrowth)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });	
 
     Wized.data.listen("i.input_property_value_growth", async () => {
@@ -373,6 +401,7 @@ window.addEventListener("load", async () => {
       .setPropertyValueGrowth(propertyValueGrowth)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });	
 
     Wized.data.listen("i.input_expense_growth", async () => {
@@ -382,6 +411,7 @@ window.addEventListener("load", async () => {
       .setExpenseGrowth(expenseGrowth)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });	
 
     Wized.data.listen("i.property_tax_growth", async () => {
@@ -391,6 +421,7 @@ window.addEventListener("load", async () => {
       .setPropertyTaxGrowth(propertyTaxGrowth)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data); 
     });	
 
     // Set up chart type control
