@@ -84,7 +84,7 @@ window.addEventListener("load", async () => {
       .setPropertyTaxGrowth(propertyTaxGrowth);
 
     const [data, monthlyData] = returnsCashFlowCalculator.calculate();
-      console.log("data", data);
+      console.log("realDeal", data);
       console.log("monthlyData", monthlyData);
 
     	
