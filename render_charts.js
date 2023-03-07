@@ -86,7 +86,7 @@ window.addEventListener("load", async () => {
     const [data, monthlyData] = returnsCashFlowCalculator.calculate();
       console.log("data", data);
       console.log("monthlyData", monthlyData);
-      Wized.data.setVariable("yearlyData", data);
+      await Wized.data.setVariable("yearlydata", data);
 
     	
 
