@@ -35,7 +35,8 @@ window.addEventListener("load", async () => {
       refi_interest_rate: refinanceInterestRate,
       refi_amortization: refinanceAmortization,
       gas,
-      water_sewer,
+      hoa,
+      water_sewer: waterSewer,
       electricity,
       trash,
       utilities = gas + water_sewer + electricity + trash,    
@@ -64,6 +65,11 @@ window.addEventListener("load", async () => {
       .setPropertyInsurance(propertyInsurance)
       .setPmi(pmi)
       .setPropertyManagementFee(propertyManagementFee)
+      .setWaterSewer(waterSewer)
+      .setElectricity(electricity)
+      .setGas(gas)
+      .setTrash(trash)
+      .setHoa(hoa)
       .setUtilities(utilities)
       .setMaintenanceRepairsRate(maintenanceRepairsRate)
       .setCapExRate(capExRate)
@@ -215,7 +221,169 @@ window.addEventListener("load", async () => {
       .calculate();
       returnsCashFlowChart.setData(data).update();
     });
+	  
+    Wized.data.listen("i.input_rental_income", async () => {
+      const rentalIncome = await Wized.data.get("i.input_rental_income");
+      console.log("Value of i.input_rental_income changed to: ", rentalIncome);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setRentalIncome(rentalIncome)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
+	  
+    Wized.data.listen("i.input_other_income", async () => {
+      const otherIncome = await Wized.data.get("i.input_other_income");
+      console.log("Value of i.input_other_income changed to: ", otherIncome);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setOtherIncome(otherIncome)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
+	  
+    Wized.data.listen("i.input_vacancy", async () => {
+      const vacancyRate = await Wized.data.get("i.input_vacancy");
+      console.log("Value of i.input_vacancy changed to: ", vacancyRate);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setVacancyRate(vacancyRate)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
+	  
+    Wized.data.listen("i.input_repairs_maintenance", async () => {
+      const maintenanceRepairsRate = await Wized.data.get("i.input_repairs_maintenance");
+      console.log("Value of i.input_repairs_maintenance changed to: ", maintenanceRepairsRate);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setMaintenanceRepairsRate(maintenanceRepairsRate)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });	  
 
+    Wized.data.listen("i.input_cap_ex", async () => {
+      const capExRate = await Wized.data.get("i.input_cap_ex");
+      console.log("Value of i.input_cap_ex changed to: ", capExRate);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setCapExRate(capExRate)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });	
+
+    Wized.data.listen("i.input_management", async () => {
+      const propertyManagementFee = await Wized.data.get("i.input_management");
+      console.log("Value of i.input_management changed to: ", propertyManagementFee);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setPropertyManagementFee(propertyManagementFee)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });	  
+
+    Wized.data.listen("i.input_electricity", async () => {
+      const electricity = await Wized.data.get("i.input_electricity");
+      console.log("Value of i.input_electricity changed to: ", electricity);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setElectricity(electricity)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });	  
+
+    Wized.data.listen("i.input_water_sewer", async () => {
+      const waterSewer = await Wized.data.get("i.input_electricity");
+      console.log("Value of i.input_electricity changed to: ", waterSewer);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setElectricity(electricity)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });	  	
+
+    Wized.data.listen("i.input_gas", async () => {
+      const gas = await Wized.data.get("i.input_gas");
+      console.log("Value of i.input_gas changed to: ", gas);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setGas(gas)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });	 
+
+
+    Wized.data.listen("i.input_trash", async () => {
+      const trash = await Wized.data.get("i.input_trash");
+      console.log("Value of i.input_trash changed to: ", trash);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setTrash(trash)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });	
+    
+    Wized.data.listen("i.input_property_insurance", async () => {
+      const propertyInsurance = await Wized.data.get("i.input_property_insurance");
+      console.log("Value of i.input_property_insurance changed to: ", propertyInsurance);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setPropertyInsurance(propertyInsurance)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });	
+
+    Wized.data.listen("i.input_other_expenses", async () => {
+      const otherExpenses = await Wized.data.get("i.input_other_expenses");
+      console.log("Value of i.input_other_expenses changed to: ", otherExpenses);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setOtherExpenses(otherExpenses)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });	
+
+    Wized.data.listen("i.input_property_tax_rate", async () => {
+      const propertyTaxRate = await Wized.data.get("i.input_property_tax_rate");
+      console.log("Value of i.input_property_tax_rate changed to: ", propertyTaxRate);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setPropertyTaxRate(propertyTaxRate)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });	
+
+    Wized.data.listen("i.input_hoa", async () => {
+      const hoa = await Wized.data.get("i.input_hoa");
+      console.log("Value of i.input_hoa changed to: ", hoa);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setHoa(hoa)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });	
+
+    Wized.data.listen("i.input_income_growth", async () => {
+      const incomeGrowth = await Wized.data.get("i.input_income_growth");
+      console.log("Value of i.input_income_growth changed to: ", incomeGrowth);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setIncomeGrowth(incomeGrowth)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });	
+
+    Wized.data.listen("i.input_property_value_growth", async () => {
+      const propertyValueGrowth = await Wized.data.get("i.input_property_value_growth");
+      console.log("Value of i.input_property_value_growth changed to: ", propertyValueGrowth);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setPropertyValueGrowth(propertyValueGrowth)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });	
+
+    Wized.data.listen("i.input_expense_growth", async () => {
+      const expenseGrowth = await Wized.data.get("i.input_expense_growth");
+      console.log("Value of i.input_expense_growth changed to: ", expenseGrowth);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setExpenseGrowth(expenseGrowth)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });	
+
+    Wized.data.listen("i.property_tax_growth", async () => {
+      const propertyTaxGrowth = await Wized.data.get("i.property_tax_growth");
+      console.log("Value of i.property_tax_growth changed to: ", propertyTaxGrowth);       
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setPropertyTaxGrowth(propertyTaxGrowth)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });	
 
     // Set up chart type control
     document
