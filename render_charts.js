@@ -124,8 +124,8 @@ window.addEventListener("load", async () => {
   	const [data, monthlyData] = returnsCashFlowCalculator
     	.setArv(arv)
     	.calculate();
-	await Wized.data.setVariable("data", data);
 	returnsCashFlowChart.setData(data).update();
+	Wized.data.setVariable("data", data);   
     });
     
     Wized.data.listen("i.input_amortization_value", async () => {    
