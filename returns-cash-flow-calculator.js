@@ -219,6 +219,8 @@ class ReturnsCashFlowCalculator {
         : Math.round(cashInDealAfterRefinance);
     yearlyData.cashToClose = -Math.round(cashToClose);
     yearlyData.cashToStabilize = -Math.round(cashToStabilize);
+    let buyingCosts = this.downPaymentAmount + this.closingCosts;
+    yearlyData.shortTermEquity = this.arv - this.holdingCosts - this.buyingcosts;
 
     /* —————— Return both yearly and monthly data —————— */
     return [yearlyData, monthlyData];
