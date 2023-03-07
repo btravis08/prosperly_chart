@@ -38,6 +38,23 @@ class ReturnsCashFlowCalculator {
             0
             );
             }
+          d.debtServiceOverTime = -formulajs.PMT(
+          this.interestRate / 12,
+          this.amortization * 12,
+          this.loanAmount
+        );
+        d.debtServicePrincipalOverTime = formulajs.PPMT(
+          this.interestRate / 12,
+          currentMonth,
+          this.amortization * 12,
+          this.loanAmount
+        );
+        d.debtServiceInterestOverTime = -formulajs.IPMT(
+          this.interestRate / 12,
+          currentMonth,
+          this.amortization * 12,
+          this.loanAmount
+        );
       } else if (currentMonth < this.timeToRefinance) {
         d.propertyValueOverTime =
           this.purchasePrice *
@@ -59,6 +76,23 @@ class ReturnsCashFlowCalculator {
             0
             );
             }
+        d.debtServiceOverTime = -formulajs.PMT(
+          this.interestRate / 12,
+          this.amortization * 12,
+          this.loanAmount
+        );
+        d.debtServicePrincipalOverTime = formulajs.PPMT(
+          this.interestRate / 12,
+          currentMonth,
+          this.amortization * 12,
+          this.loanAmount
+        );
+        d.debtServiceInterestOverTime = -formulajs.IPMT(
+          this.interestRate / 12,
+          currentMonth,
+          this.amortization * 12,
+          this.loanAmount
+        );
       } else {
         d.propertyValueOverTime =
           this.arv *
@@ -76,6 +110,23 @@ class ReturnsCashFlowCalculator {
             currentMonth - this.timeToRefinance + 1,
             0
           );
+        d.debtServiceOverTime = -formulajs.PMT(
+          this.refinanceInterestRate / 12,
+          this.refinanceAmortization * 12,
+          this.refinanceLoanAmount
+        );
+        d.debtServicePrincipalOverTime = formulajs.PPMT(
+          this.refinanceInterestRate / 12,
+          currentMonth,
+          this.refinanceAmortization * 12,
+          this.refinanceLoanAmount
+        );
+        d.debtServiceInterestOverTime = -formulajs.IPMT(
+          this.refinanceInterestRate / 12,
+          currentMonth,
+          this.refinanceAmortization * 12,
+          this.refinanceLoanAmount
+        );
       }
 
       d.accruedEquityOverTime = d.propertyValueOverTime - d.loanBalanceOverTime;
@@ -99,23 +150,7 @@ class ReturnsCashFlowCalculator {
       );
       d.totalMonthlyIncomeOverTime =
         d.rentalIncomeOverTime + d.otherIncomeOverTime;
-        d.debtServiceOverTime = -formulajs.PMT(
-          this.interestRate / 12,
-          this.amortization * 12,
-          this.loanAmount
-        );
-        d.debtServicePrincipalOverTime = formulajs.PPMT(
-          this.interestRate / 12,
-          currentMonth,
-          this.amortization * 12,
-          this.loanAmount
-        );
-        d.debtServiceInterestOverTime = -formulajs.IPMT(
-          this.interestRate / 12,
-          currentMonth,
-          this.amortization * 12,
-          this.loanAmount
-        );
+        
       d.taxesOverTime =
         ((this.purchasePrice * this.propertyTaxRate) / 12) *
         formulajs.POWER(1 + this.propertyTaxGrowth, currentYear - 1);
