@@ -159,6 +159,15 @@ window.addEventListener("load", async () => {
       .calculate();
       returnsCashFlowChart.setData(data).update();
     });
+
+    Wized.data.listen("i.input_rehab_in_months", async () => {    
+      const rehabInMonths = await Wized.data.get("i.input_rehab_in_months");   
+      console.log("Value of i.input_rehab_in_months changed to: ", rehabInMonths);
+      const [data, monthlyData] = returnsCashFlowCalculator
+      .setRehabInMonths(rehabInMonths)
+      .calculate();
+      returnsCashFlowChart.setData(data).update();
+    });
       
     Wized.data.listen("i.input_down_payment_30", async () => {
       const downPaymentAmount = await Wized.data.get("i.input_down_payment_30") / 100 * purchasePrice;
