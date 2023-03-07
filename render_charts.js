@@ -84,8 +84,9 @@ window.addEventListener("load", async () => {
       .setPropertyTaxGrowth(propertyTaxGrowth);
 
     const [data, monthlyData] = returnsCashFlowCalculator.calculate();
-      console.log("realDeal", data);
+      console.log("data", data);
       console.log("monthlyData", monthlyData);
+      Wized.data.setVariable("yearlyData", data);
 
     	
 
@@ -526,7 +527,7 @@ window.addEventListener("load", async () => {
         .update();
     });
 
-	 await Wized.data.setVariable("data", data);
+	 
   });
 	
 });
