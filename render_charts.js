@@ -124,8 +124,7 @@ window.addEventListener("load", async () => {
   	const [data, monthlyData] = returnsCashFlowCalculator
     	.setArv(arv)
     	.calculate();
-	returnsCashFlowChart.setData(data).update();
-	Wized.data.setVariable("data", data);   
+	returnsCashFlowChart.setData(data).update(); 
     });
     
     Wized.data.listen("i.input_amortization_value", async () => {    
@@ -237,6 +236,7 @@ window.addEventListener("load", async () => {
       .setRentalIncome(rentalIncome)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data);  
     });
 	  
     Wized.data.listen("i.input_other_income", async () => {
@@ -495,7 +495,7 @@ window.addEventListener("load", async () => {
         .update();
     });
 
-	  Wized.data.setVariable("data", data);
+	 
   });
 	
 });
