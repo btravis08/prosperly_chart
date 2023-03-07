@@ -12,8 +12,6 @@ window.addEventListener("load", async () => {
       mortgage,
       down_payment: downPayment,
       purchase_price: purchasePrice,
-      downPaymentAmount = downPayment/100*purchasePrice,
-      loanAmount = purchasePrice - downPaymentAmount,
       closing_costs: closingCosts,
       interest_rate: interestRate,
       amortization,
@@ -31,15 +29,13 @@ window.addEventListener("load", async () => {
       refinance,
       arv,
       refi_ltv: ltv,
-      refinanceLoanAmount = arv*ltv/100,
       refi_interest_rate: refinanceInterestRate,
       refi_amortization: refinanceAmortization,
       gas,
       hoa,
       water_sewer: waterSewer,
       electricity,
-      trash,
-      utilities = gas + waterSewer + electricity + trash,    
+      trash, 
       months_to_refinance: timeToRefinance,
       income_growth: incomeGrowth,
       pv_growth: propertyValueGrowth,
@@ -47,6 +43,10 @@ window.addEventListener("load", async () => {
       property_tax_growth: propertyTaxGrowth,
     } = report;
 
+    let utilities = gas + waterSewer + electricity + trash;
+    let refinanceLoanAmount = arv*ltv/100;
+    let downPaymentAmount = downPayment/100*purchasePrice;
+    let loanAmount = purchasePrice - downPaymentAmount;
     let pmi = 1.0;
 
     // Initialize calculator
