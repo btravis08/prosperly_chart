@@ -491,67 +491,6 @@ window.addEventListener("load", async () => {
         .update();
     });
 
-// start remove
-const summableVarNames = [
-		"totalMonthlyIncomeOverTime",
-		"capExOverTime",
-		"cashFlowAfterDebtOverTime",
-		"cashFlowBeforeDebtOverTime",
-		"debtServiceInterestOverTime",
-    "debtServicePrincipalOverTime",
-    "debtServiceOverTime",
-    "grossOperatingIncomeOverTime",
-    "insuranceOverTime",
-    "netOperatingIncomeOverTime",
-    "netOperatingIncomeOverTime",
-    "otherExpensesOverTime",
-		"totalMonthlyExpensesOverTime",
-		"rentalIncomeOverTime",
-    "otherIncomeOverTime",
-		"totalMonthlyIncomeOverTime",
-    "pmiOverTime",
-    "propertyManagementOverTime",
-    "propertyValueOverTime",
-    "rentalCashflowOverTime",
-		"repairsMaintenanceOverTime",
-    "taxesOverTime",
-    "totalCashflowOverTime",
-    "totalOperatingExpensesOverTime",
-    "totalReturnsOverTime",
-    "utilitiesOverTime",
-    "vacancyOverTime"
-    ]; // Please fill this array out
-
-  const tableData = {};
-  const maxYear = monthlyData[monthlyData.length - 1].year;
-  const years = [1, ...d3.range(0, maxYear + 1, 5).filter((year) => year > 0)];
-  const varNames = Object.keys(monthlyData[0]);
-  for (const varName of varNames) {
-    const valuesArray = [];
-    // Push the first year first month's value
-    valuesArray.push(monthlyData[0][varName]);
-
-    if (summableVarNames.includes(varName)) {
-      // For summable variables, push yearly accumulated value
-      for (const year of years) {
-        const yearData = monthlyData.filter((d) => d.year === year);
-        const sum = yearData.reduce((acc, d) => acc + d[varName], 0);
-        valuesArray.push(sum);
-      }
-    } else {
-      // For non-summable variables, push only december's value
-      for (const d of monthlyData) {
-        if (years.includes(d.year) && d.isYearEnd) {
-          valuesArray.push(d[varName]);
-        }
-      }
-    }
-    tableData[varName] = valuesArray;
-  }
-  console.log("tableData", tableData);
-	Wized.data.setVariable("tabledata", tableData);
-
-// end remove
   });
 	
 });
