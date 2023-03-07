@@ -495,7 +495,7 @@ window.addEventListener("load", async () => {
         .update();
     });
 
-	 
+	 await Wized.data.setVariable("data", data);  
   });
 	
 });
