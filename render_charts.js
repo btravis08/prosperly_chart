@@ -415,9 +415,9 @@ window.addEventListener("load", async () => {
       Wized.data.setVariable("data", data); 
     });	
 
-    Wized.data.listen("i.property_tax_growth", async () => {
-      const propertyTaxGrowth = await Wized.data.get("i.property_tax_growth");
-      console.log("Value of i.property_tax_growth changed to: ", propertyTaxGrowth);       
+    Wized.data.listen("i.input_property_tax_growth", async () => {
+      const propertyTaxGrowth = await Wized.data.get("i.input_property_tax_growth");
+      console.log("Value of i.input_property_tax_growth changed to: ", propertyTaxGrowth);       
       const [data, monthlyData] = returnsCashFlowCalculator
       .setPropertyTaxGrowth(propertyTaxGrowth)
       .calculate();
