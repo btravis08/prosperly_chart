@@ -87,7 +87,8 @@ window.addEventListener("load", async () => {
       console.log("data", data);
       console.log("monthlyData", monthlyData);
 
-    Wized.data.setVariable("yearlyData", data);
+    	
+
 
     // Keep track of selected chart type
     let selectedChartType = "returns";
@@ -493,6 +494,7 @@ window.addEventListener("load", async () => {
         .update();
     });
 
+	  Wized.data.setVariable("data", data);
   });
 	
 });
