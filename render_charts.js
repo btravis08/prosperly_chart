@@ -122,10 +122,10 @@ window.addEventListener("load", async () => {
       const arv = await Wized.data.get("i.input_arv");   
       console.log("Value of i.input_arv changed to: ", arv);
       const [data, monthlyData] = returnsCashFlowCalculator
-      Wized.data.setVariable("data", data)
       .setArv(arv)
       .calculate();
       returnsCashFlowChart.setData(data).update();
+      Wized.data.setVariable("data", data);
     });
     
     Wized.data.listen("i.input_amortization_value", async () => {    
