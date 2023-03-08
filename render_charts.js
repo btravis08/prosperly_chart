@@ -88,9 +88,11 @@ window.addEventListener("load", async () => {
       console.log("data", data);
       console.log("monthlyData", monthlyData);
       console.log("otherData", otherData);
-      await Wized.data.setVariable("data", data);
-    	
 
+      await Promise.all([
+  	Wized.data.setVariable("otherData", otherData),
+  	Wized.data.setVariable("data", data),
+	]);	
 
     // Keep track of selected chart type
     let selectedChartType = "returns";
