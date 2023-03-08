@@ -236,6 +236,11 @@ class ReturnsCashFlowCalculator {
           this.rehabCosts);
     }
 
+    let buyingCosts = null;
+    if (this.mortgage === true) {
+      buyingCosts = this.closingCosts + this.downPaymentAmount;
+    }
+
     /* —————— Yearly data for charts —————— */
     let yearlyData = monthlyData
       .filter((d) => d.isYearEnd)
@@ -254,12 +259,12 @@ class ReturnsCashFlowCalculator {
         : Math.round(cashInDealAfterRefinance);
     yearlyData.cashToClose = -Math.round(cashToClose);
     yearlyData.cashToStabilize = -Math.round(cashToStabilize);
-    let buyingCosts = this.downPaymentAmount + this.closingCosts;
-    yearlyData.shortTermEquity = this.arv - this.holdingCosts - this.buyingcosts;
+    yearlyData.holdingCosts = holdingCosts;
+    yearlyData.buyingCosts = buyingCosts;
 
-  let otherData = {
-   buyingCosts: yearlyData.buyingCosts
-  }
+    let otherData = {
+      buyingCosts: yearlyData.buyingCosts
+     }
     /* —————— Return both yearly and monthly data —————— */
     return [yearlyData, monthlyData, otherData];
   }
