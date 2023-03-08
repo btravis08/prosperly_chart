@@ -262,11 +262,11 @@ class ReturnsCashFlowCalculator {
     yearlyData.holdingCosts = holdingCosts;
     yearlyData.buyingCosts = buyingCosts;
 
-    let otherData = {
+    let otherdata = {
       buyingCosts: yearlyData.buyingCosts
      }
     /* —————— Return both yearly and monthly data —————— */
-    return [yearlyData, monthlyData, otherData];
+    return [yearlyData, monthlyData, otherdata];
   }
 
   setPurchasePrice(_) {
