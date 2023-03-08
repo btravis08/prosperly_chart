@@ -83,10 +83,14 @@ window.addEventListener("load", async () => {
       .setExpenseGrowth(expenseGrowth)
       .setPropertyTaxGrowth(propertyTaxGrowth);
 
-    const [data, monthlyData] = returnsCashFlowCalculator.calculate();
+      const [data, monthlyData, otherData] = returnsCashFlowCalculator.calculate();
       console.log("data", data);
       console.log("monthlyData", monthlyData);
-      await Wized.data.setVariable("data", data);
+      console.log("otherData", otherData);
+      await Promise.all([
+  	Wized.data.setVariable("otherData", otherData),
+  	Wized.data.setVariable("data", data)
+      ]);
 
     	
 
