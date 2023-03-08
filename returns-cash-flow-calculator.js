@@ -259,12 +259,12 @@ class ReturnsCashFlowCalculator {
         : Math.round(cashInDealAfterRefinance);
     yearlyData.cashToClose = -Math.round(cashToClose);
     yearlyData.cashToStabilize = -Math.round(cashToStabilize);
-    yearlyData.holdingCosts = holdingCosts;
-    yearlyData.buyingCosts = buyingCosts;
 
     let otherdata = {
-      buyingCosts: yearlyData.buyingCosts
+      buyingCosts: buyingCosts,
+      holdingCosts: holdingCosts
      }
+
     /* —————— Return both yearly and monthly data —————— */
     return [yearlyData, monthlyData, otherdata];
   }
