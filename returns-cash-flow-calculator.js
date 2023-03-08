@@ -269,6 +269,11 @@ class ReturnsCashFlowCalculator {
     return this;
   }
 
+  setMortgage(_) {
+    this.mortgage = _;
+    return this;
+  }
+
   setClosingCosts(_) {
     this.closingCosts = +_;
     return this;
