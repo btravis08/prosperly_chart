@@ -52,6 +52,7 @@ window.addEventListener("load", async () => {
     // Initialize calculator
     const returnsCashFlowCalculator = new ReturnsCashFlowCalculator()
       .setPurchasePrice(purchasePrice)
+      .setMortgage(mortgage)
       .setClosingCosts(closingCosts)
       .setDownPaymentAmount(downPaymentAmount)
       .setLoanAmount(loanAmount)
