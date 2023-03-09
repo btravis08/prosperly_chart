@@ -124,7 +124,7 @@ window.addEventListener("load", async () => {
     const inputArv = document.querySelector("input[w-el='inputArv']");
     const inputMortgage = document.querySelector("input[w-el='inputMortgage']");
     const inputDownPaymentAmount = document.querySelectorAll('input[type="radio"][name="downPaymentAmount"]');
-    const inputAmortization = document.querySelector("select[w-el='inputAmortization']");
+    const inputAmortization = document.querySelector("select[w-el='inputAmortizationValue']");
     
     // Setup Event Listeners
     inputPurchasePrice.addEventListener("input", updateCashFlow);
