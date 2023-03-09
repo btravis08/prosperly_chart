@@ -111,20 +111,29 @@ window.addEventListener("load", async () => {
             onlyInteger: true,
             greaterThan: 0,
           },
+        },
+        arv: {
+          numericality: {
+            onlyInteger: true,
+            greaterThan: 0,
+          },
         }
       };
     // Setup Input Controls
     const inputPurchasePrice = document.querySelector("input[w-el='inputPurchasePrice']");
-    console.log("recorded input change", inputPurchasePrice)
+    const inputArv = document.querySelector("input[w-el='inputArv']");
+
     // const radioButtons = document.querySelectorAll('input[type="radio"][name="downPaymentAmount"]');
 
     inputPurchasePrice.addEventListener("input", updateCashFlow);
+    inputArv.addEventListener("input", updateCashFlow);
     /*radioButtons.forEach(button => {
       button.addEventListener('click', updateCashFlow);
     });*/
 
     function updateCashFlow(event) {
       const purchasePrice = parseInt(inputPurchasePrice.value);
+      const arv = parseInt(inputArv.value);
 
       // Get the down payment value from the checked radio button
       // const checkedRadioButton = document.querySelector('input[name="downPaymentAmount"]:checked');
@@ -133,19 +142,25 @@ window.addEventListener("load", async () => {
 
       // Reset the previous UI error state
       inputPurchasePrice.classList.remove("has-error");
+      inputArv.classList.remove("has-error");
 
       // Validate the input values using validate.js
-      const validation = validate({ purchasePrice: purchasePrice }, constraints);
+      const validation = validate({ purchasePrice: purchasePrice, arv: arv }, constraints);
 
       if (validation) {
         if (validation.purchasePrice) {
           // Set the UI error state for inputPurchasePrice
           inputPurchasePrice.classList.add("has-error");
         }
+        if (validation.arv) {
+          // Set the UI error state for inputPurchasePrice
+          inputArv.classList.add("has-error");
+        }
 
       } else {
         const [data, monthlyData] = returnsCashFlowCalculator
           .setPurchasePrice(purchasePrice)
+          .setArv(arv)
           //.setDownPaymentAmount(downPaymentAmount)
           //.setLoanAmount(loanAmount)
           .calculate();
