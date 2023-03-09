@@ -103,14 +103,25 @@ window.addEventListener("load", async () => {
     returnsCashFlowChart.setData(data).setChartType(selectedChartType).update();
     updateMobileReturnsCashFlowChartContent();
 
+
     // Define the validation constraints
+      const constraints = {
+        purchasePrice: {
+          numericality: {
+            onlyInteger: true,
+            greaterThan: 0,
+          },
+        }
+      };
+    // Setup Input Controls
     const inputPurchasePrice = document.querySelector("input[w-el='inputPurchasePrice']");
+    console.log("recorded input change", inputPurchasePrice)
     // const radioButtons = document.querySelectorAll('input[type="radio"][name="downPaymentAmount"]');
 
     inputPurchasePrice.addEventListener("input", updateCashFlow);
-    radioButtons.forEach(button => {
+    /*radioButtons.forEach(button => {
       button.addEventListener('click', updateCashFlow);
-    });
+    });*/
 
     function updateCashFlow(event) {
       const purchasePrice = parseInt(inputPurchasePrice.value);
