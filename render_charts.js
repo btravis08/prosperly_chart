@@ -360,7 +360,6 @@ window.addEventListener("load", async () => {
       const refinanceAmortization = parseInt(inputRefinanceAmortization.value);
       const refinanceInterestRate = parseInt(inputRefinanceInterestRate.value);
       const refinanceClosingCosts = parseInt(inputRefinanceClosingCosts.value);
-
       const rentalIncome = parseInt(inputRentalIncome.value);
       const otherIncome = parseInt(inputOtherIncome.value);
       const vacancy = parseInt(inputVacancy.value);
