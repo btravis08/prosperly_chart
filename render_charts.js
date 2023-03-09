@@ -124,6 +124,7 @@ window.addEventListener("load", async () => {
     const inputArv = document.querySelector("input[w-el='inputArv']");
     const inputMortgage = document.querySelector("input[w-el='inputMortgage']");
     const inputDownPaymentAmount = document.querySelectorAll('input[type="radio"][name="downPaymentAmount"]');
+    const inputAmortization = document.querySelector("select[w-el='inputAmortization']");
     
     // Setup Event Listeners
     inputPurchasePrice.addEventListener("input", updateCashFlow);
@@ -132,11 +133,14 @@ window.addEventListener("load", async () => {
     inputDownPaymentAmount.forEach(button => {
       button.addEventListener('click', updateCashFlow);
     });
+    inputAmortization.addEventListener("change", updateCashFlow);
+
 
     function updateCashFlow(event) {
       const purchasePrice = parseInt(inputPurchasePrice.value);
       const arv = parseInt(inputArv.value);
       const mortgage = parseInt(inputMortgage.value);
+      const amortization = parseInt(inputAmortization.value);
 
       // Get the down payment value from the checked radio button
       const inputDownPaymentAmount = document.querySelector('input[name="downPaymentAmount"]:checked');
@@ -173,6 +177,7 @@ window.addEventListener("load", async () => {
           .setMortgage(mortgage)
           .setLoanAmount(loanAmount)
           .setDownPaymentAmount(downPaymentAmount)
+          .setAmortization(amortization)
           .calculate();
         returnsCashFlowChart.setData(data).update();
         Wized.data.setVariable("data", data);
