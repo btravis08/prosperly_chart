@@ -35,7 +35,7 @@ window.addEventListener("load", async () => {
       hoa,
       water_sewer: waterSewer,
       electricity,
-      trash, 
+      trash,
       months_to_refinance: timeToRefinance,
       income_growth: incomeGrowth,
       pv_growth: propertyValueGrowth,
@@ -44,8 +44,8 @@ window.addEventListener("load", async () => {
     } = report;
 
     let utilities = gas + waterSewer + electricity + trash;
-    let refinanceLoanAmount = arv*ltv/100;
-    let downPaymentAmount = downPayment/100*purchasePrice;
+    let refinanceLoanAmount = arv * ltv / 100;
+    let downPaymentAmount = downPayment / 100 * purchasePrice;
     let loanAmount = purchasePrice - downPaymentAmount;
     let pmi = 1.0;
 
@@ -84,15 +84,15 @@ window.addEventListener("load", async () => {
       .setExpenseGrowth(expenseGrowth)
       .setPropertyTaxGrowth(propertyTaxGrowth);
 
-      const [data, monthlyData, otherdata] = returnsCashFlowCalculator.calculate();
-      console.log("data", data);
-      console.log("monthlyData", monthlyData);
-      console.log("otherdata", otherdata);
+    const [data, monthlyData, otherdata] = returnsCashFlowCalculator.calculate();
+    console.log("data", data);
+    console.log("monthlyData", monthlyData);
+    console.log("otherdata", otherdata);
 
-      await Promise.all([
-  	Wized.data.setVariable("otherdata", otherdata),
-  	Wized.data.setVariable("data", data),
-	]);	
+    await Promise.all([
+      Wized.data.setVariable("otherdata", otherdata),
+      Wized.data.setVariable("data", data),
+    ]);
 
     // Keep track of selected chart type
     let selectedChartType = "returns";
@@ -105,28 +105,30 @@ window.addEventListener("load", async () => {
 
 
     // Define the validation constraints
-      const constraints = {
-        purchasePrice: {
-          numericality: {
-            onlyInteger: true,
-            greaterThan: 0,
-          },
+    const constraints = {
+      purchasePrice: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
         },
-        arv: {
-          numericality: {
-            onlyInteger: true,
-            greaterThan: 0,
-          },
-        }
-      };
+      },
+      arv: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+        },
+      }
+    };
     // Setup Input Controls
     const inputPurchasePrice = document.querySelector("input[w-el='inputPurchasePrice']");
     const inputArv = document.querySelector("input[w-el='inputArv']");
+    const inputMortgage = document.querySelector("input[w-el='inputMortgage']");
 
     // const radioButtons = document.querySelectorAll('input[type="radio"][name="downPaymentAmount"]');
 
     inputPurchasePrice.addEventListener("input", updateCashFlow);
     inputArv.addEventListener("input", updateCashFlow);
+    inputMortgage.addEventListener("input", updateCashFlow);
     /*radioButtons.forEach(button => {
       button.addEventListener('click', updateCashFlow);
     });*/
@@ -134,11 +136,18 @@ window.addEventListener("load", async () => {
     function updateCashFlow(event) {
       const purchasePrice = parseInt(inputPurchasePrice.value);
       const arv = parseInt(inputArv.value);
+      const mortgage = parseInt(inputMortgage.value);
 
       // Get the down payment value from the checked radio button
       // const checkedRadioButton = document.querySelector('input[name="downPaymentAmount"]:checked');
       // const downPaymentAmount = checkedRadioButton.value / 100 * purchasePrice;
       // const loanAmount = purchasePrice - downPaymentAmount; // Re-calculate the loan amount
+
+      if (inputMortgage.checked) {
+        loanAmount = 0; // Set loanAmount to zero if inputMortgage is checked
+      } else {
+        loanAmount = purchasePrice - downPaymentAmount; // Calculate the loan amount
+      }
 
       // Reset the previous UI error state
       inputPurchasePrice.classList.remove("has-error");
@@ -161,11 +170,12 @@ window.addEventListener("load", async () => {
         const [data, monthlyData] = returnsCashFlowCalculator
           .setPurchasePrice(purchasePrice)
           .setArv(arv)
+          .setMortgage(mortgage)
+          .setLoanAmount(loanAmount)
           //.setDownPaymentAmount(downPaymentAmount)
-          //.setLoanAmount(loanAmount)
           .calculate();
         returnsCashFlowChart.setData(data).update();
-	Wized.data.setVariable("data", data); 
+        Wized.data.setVariable("data", data);
         console.log("New data populated from user input", data)
       }
     }
@@ -203,16 +213,14 @@ window.addEventListener("load", async () => {
             //document.querySelector("#chartName").textContent = d.total.name;
             document.querySelector("#chartTotal").textContent = formatValue(d.total.value);
             document.querySelector("#chartYear").textContent = d.year;
-      document.querySelector("#atYear").textContent = "at year";
-      document.querySelector("#chartValue0").textContent = `${
-      d.values[0].name
-      }: ${formatValue(d.values[0].value)}`;
-      document.querySelector("#chartValue1").textContent = `${
-      d.values[1].name
-      }: ${formatValue(d.values[1].value)}`;
-      document.querySelector("#circle_0").textContent = "circle";
-      document.querySelector("#circle_1").textContent = "circle";
-      document.querySelector("#chartLTV").style.display = "none";
+            document.querySelector("#atYear").textContent = "at year";
+            document.querySelector("#chartValue0").textContent = `${d.values[0].name
+              }: ${formatValue(d.values[0].value)}`;
+            document.querySelector("#chartValue1").textContent = `${d.values[1].name
+              }: ${formatValue(d.values[1].value)}`;
+            document.querySelector("#circle_0").textContent = "circle";
+            document.querySelector("#circle_1").textContent = "circle";
+            document.querySelector("#chartLTV").style.display = "none";
           }
           break;
         case "cashFlow":
@@ -220,37 +228,35 @@ window.addEventListener("load", async () => {
             document.querySelector("#chartName").textContent = d.total.name;
             document.querySelector("#chartTotal").textContent = formatValue(d.total.value);
             document.querySelector("#chartYear").textContent = d.year;
-      document.querySelector("#atYear").textContent = "at year";
-      document.querySelector("#chartValue0").textContent = `${
-      d.values[0].name
-      }: ${formatValue(d.values[0].value)}`;
-      document.querySelector("#chartValue1").textContent = `${
-      d.values[1].name
-      }: ${formatValue(d.values[1].value)}`;
-      document.querySelector("#circle_0").textContent = "circle";
-      document.querySelector("#circle_1").textContent = "circle";
-      document.querySelector("#chartLTV").style.display = "none";
+            document.querySelector("#atYear").textContent = "at year";
+            document.querySelector("#chartValue0").textContent = `${d.values[0].name
+              }: ${formatValue(d.values[0].value)}`;
+            document.querySelector("#chartValue1").textContent = `${d.values[1].name
+              }: ${formatValue(d.values[1].value)}`;
+            document.querySelector("#circle_0").textContent = "circle";
+            document.querySelector("#circle_1").textContent = "circle";
+            document.querySelector("#chartLTV").style.display = "none";
           }
           break;
         case "cashInDeal":
           {
             document.querySelector("#chartYear").textContent = "";
-                            if (data.cashInDealAfterRefinance === null || data.cashInDealAfterRefinance < 0) {
-                                document.querySelector("#chartLTV").style.display = 'none';
-                                document.querySelector("#chartName").textContent = "Cash In deal";
-                                document.querySelector("#atYear").textContent = "after stabilizing";
-                                document.querySelector("#chartTotal").textContent = `${formatValue((data.cashToClose + data.cashToStabilize))}`;
-                            } else {
-                                document.querySelector("#atYear").textContent = "after refinance";
-                                document.querySelector("#chartTotal").textContent = `${formatValue(data.cashInDealAfterRefinance)}`;
-                                document.querySelector("#chartName").textContent = "Cash out";
-                            };
-                            document.querySelector("#chartLTV").style.display = 'block';
-                            document.querySelector("#chartLTV").textContent = `Max cash out amount with ${(ltv)}% LTV`;
-                            document.querySelector("#chartValue0").textContent = "";
-                            document.querySelector("#chartValue1").textContent = "";
-                            document.querySelector("#circle_0").textContent = "";
-                            document.querySelector("#circle_1").textContent = "";
+            if (data.cashInDealAfterRefinance === null || data.cashInDealAfterRefinance < 0) {
+              document.querySelector("#chartLTV").style.display = 'none';
+              document.querySelector("#chartName").textContent = "Cash In deal";
+              document.querySelector("#atYear").textContent = "after stabilizing";
+              document.querySelector("#chartTotal").textContent = `${formatValue((data.cashToClose + data.cashToStabilize))}`;
+            } else {
+              document.querySelector("#atYear").textContent = "after refinance";
+              document.querySelector("#chartTotal").textContent = `${formatValue(data.cashInDealAfterRefinance)}`;
+              document.querySelector("#chartName").textContent = "Cash out";
+            };
+            document.querySelector("#chartLTV").style.display = 'block';
+            document.querySelector("#chartLTV").textContent = `Max cash out amount with ${(ltv)}% LTV`;
+            document.querySelector("#chartValue0").textContent = "";
+            document.querySelector("#chartValue1").textContent = "";
+            document.querySelector("#circle_0").textContent = "";
+            document.querySelector("#circle_1").textContent = "";
           }
           break;
         default:
@@ -263,7 +269,7 @@ window.addEventListener("load", async () => {
       new KPIGaugeChart(document.querySelector(`#kpiGaugeChart${i}`))
         .setData(kpiData.score)
         .update();
-        console.log(kpiData.score);
+      console.log(kpiData.score);
     });
     const ratioDataArray = await Wized.data.get("r.7.d.ratio_array");
     ratioDataArray.forEach((ratioData, i) => {
@@ -272,8 +278,8 @@ window.addEventListener("load", async () => {
         .update();
     });
 
-	 
+
   });
-	
+
 });
 
