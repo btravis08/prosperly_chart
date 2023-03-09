@@ -123,15 +123,15 @@ window.addEventListener("load", async () => {
     const inputPurchasePrice = document.querySelector("input[w-el='inputPurchasePrice']");
     const inputArv = document.querySelector("input[w-el='inputArv']");
     const inputMortgage = document.querySelector("input[w-el='inputMortgage']");
-
-    // const radioButtons = document.querySelectorAll('input[type="radio"][name="downPaymentAmount"]');
-
+    const inputDownPaymentAmount = document.querySelectorAll('input[type="radio"][name="downPaymentAmount"]');
+    
+    // Setup Event Listeners
     inputPurchasePrice.addEventListener("input", updateCashFlow);
     inputArv.addEventListener("input", updateCashFlow);
     inputMortgage.addEventListener("input", updateCashFlow);
-    /*radioButtons.forEach(button => {
+    inputDownPaymentAmount.forEach(button => {
       button.addEventListener('click', updateCashFlow);
-    });*/
+    });
 
     function updateCashFlow(event) {
       const purchasePrice = parseInt(inputPurchasePrice.value);
@@ -139,9 +139,9 @@ window.addEventListener("load", async () => {
       const mortgage = parseInt(inputMortgage.value);
 
       // Get the down payment value from the checked radio button
-      // const checkedRadioButton = document.querySelector('input[name="downPaymentAmount"]:checked');
-      // const downPaymentAmount = checkedRadioButton.value / 100 * purchasePrice;
-      // const loanAmount = purchasePrice - downPaymentAmount; // Re-calculate the loan amount
+      const inputDownPaymentAmount = document.querySelector('input[name="downPaymentAmount"]:checked');
+      downPaymentAmount = inputDownPaymentAmount.value / 100 * purchasePrice;
+      loanAmount = purchasePrice - downPaymentAmount; // Re-calculate the loan amount
 
       if (inputMortgage.checked) {
         loanAmount = 0; // Set loanAmount to zero if inputMortgage is checked
@@ -172,7 +172,7 @@ window.addEventListener("load", async () => {
           .setArv(arv)
           .setMortgage(mortgage)
           .setLoanAmount(loanAmount)
-          //.setDownPaymentAmount(downPaymentAmount)
+          .setDownPaymentAmount(downPaymentAmount)
           .calculate();
         returnsCashFlowChart.setData(data).update();
         Wized.data.setVariable("data", data);
