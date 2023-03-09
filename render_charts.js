@@ -147,6 +147,37 @@ window.addEventListener("load", async () => {
           greaterThan: 0,
           lessThan: 360,
         }
+      },
+      timeToRefinance: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+          lessThan: 360,
+        }
+      },
+      ltv: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+          lessThan: 100,
+        }
+      },
+      refiInterestRate: {
+        numericality: {
+          greaterThan: 0,
+          lessThanOrEqualTo: 20,
+          format: {
+            pattern: /^\d+(\.\d{1,2})?$/,
+            message:
+              "must be a positive number with up to 2 decimal places and less than or equal to 20",
+          },
+        },
+      },
+      refiClosingCosts: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+        }
       }
     };
     // Setup Input Controls
@@ -159,19 +190,29 @@ window.addEventListener("load", async () => {
     const inputClosingCosts = document.querySelector("input[w-el='inputClosingCosts']");
     const inputRehabCosts = document.querySelector("input[w-el='inputRehabCosts']");
     const inputRehabInMonths = document.querySelector("input[w-el='inputRehabInMonths']");
+    const inputRefinance = document.querySelector("input[w-el='inputRefinance']");
+    const inputTimeToRefinance = document.querySelector("input[w-el='inputTimeToRefinance']");
+    const inputLtv = document.querySelector("input[w-el='inputLtv']");
+    const inputRefinanceAmortization = document.querySelector("select[w-el='inputRefiAmortizationValue']");
+    const inputRefinanceInterestRate = document.querySelector("input[w-el='inputRefiInterestRate']");
+    const inputRefinanceClosingCosts = document.querySelector("input[w-el='inputRefiClosingCosts']");
 
     // Setup Event Listeners
     inputPurchasePrice.addEventListener("input", updateCashFlow);
     inputArv.addEventListener("input", updateCashFlow);
     inputMortgage.addEventListener("input", updateCashFlow);
-    inputDownPaymentAmount.forEach(button => {
-      button.addEventListener('click', updateCashFlow);
-    });
+    inputDownPaymentAmount.forEach(button => { button.addEventListener('click', updateCashFlow); });
     inputAmortization.addEventListener("change", updateCashFlow);
     inputInterestRate.addEventListener("input", updateCashFlow);
     inputClosingCosts.addEventListener("input", updateCashFlow);
     inputRehabCosts.addEventListener("input", updateCashFlow);
     inputRehabInMonths.addEventListener("input", updateCashFlow);
+    inputRefinance.addEventListener("input", updateCashFlow);
+    inputTimeToRefinance.addEventListener("input", updateCashFlow);
+    inputLtv.addEventListener("input", updateCashFlow);
+    inputRefinanceAmortization.addEventListener("input", updateCashFlow);
+    inputRefinanceInterestRate.addEventListener("input", updateCashFlow);
+    inputRefinanceClosingCosts.addEventListener("input", updateCashFlow);
 
 
     function updateCashFlow(event) {
@@ -183,6 +224,12 @@ window.addEventListener("load", async () => {
       const closingCosts = parseInt(inputClosingCosts.value);
       const rehabCosts = parseInt(inputRehabCosts.value);
       const rehabInMonths = parseInt(inputRehabInMonths.value);
+      const refinance = parseInt(inputRefinance.value);
+      const timeToRefinance = parseInt(inputTimeToRefinance.value);
+      const ltv = parseInt(inputLtv.value);
+      const refinanceAmortization = parseInt(inputRefinanceAmortization.value);
+      const refinanceInterestRate = parseInt(inputRefinanceInterestRate.value);
+      const refinanceClosingCosts = parseInt(inputRefinanceClosingCosts.value);
 
       // Get the down payment value from the checked radio button
       const inputDownPaymentAmount = document.querySelector('input[name="downPaymentAmount"]:checked');
@@ -190,22 +237,42 @@ window.addEventListener("load", async () => {
       loanAmount = purchasePrice - downPaymentAmount; // Re-calculate the loan amount
 
       if (inputMortgage.checked) {
-        loanAmount = 0; // Set loanAmount to zero if inputMortgage is checked
-      } else {
         loanAmount = purchasePrice - downPaymentAmount; // Calculate the loan amount
+      } else {
+        loanAmount = 0; // Set loanAmount to zero if inputMortgage is checked
+      }
+
+      if (inputRefinance.checked) {
+        refinanceLoanAmount = arv * ltv / 100; // Set loanAmount to zero if inputMortgage is checked
+      } else {
+        refinanceLoanAmount = 0; // Calculate the loan amount
       }
 
       // Reset the previous UI error state
       inputPurchasePrice.classList.remove("has-error");
       inputArv.classList.remove("has-error");
       inputInterestRate.classList.remove("has-error");
-
       inputClosingCosts.classList.remove("has-error");
       inputRehabCosts.classList.remove("has-error");
       inputRehabInMonths.classList.remove("has-error");
+      inputTimeToRefinance.classList.remove("has-error");
+      inputLtv.classList.remove("has-error");
+      inputRefinanceInterestRate.classList.remove("has-error");
+      inputRefinanceClosingCosts.classList.remove("has-error");
 
       // Validate the input values using validate.js
-      const validation = validate({ purchasePrice, arv, interestRate, closingCosts, rehabCosts, rehabInMonths }, constraints);
+      const validation = validate({
+        purchasePrice,
+        arv,
+        interestRate,
+        closingCosts,
+        rehabCosts,
+        rehabInMonths,
+        timeToRefinance,
+        ltv,
+        refinanceInterestRate,
+        refinanceClosingCosts
+      }, constraints);
 
       if (validation) {
         if (validation.purchasePrice) {
@@ -226,6 +293,18 @@ window.addEventListener("load", async () => {
         if (validation.rehabInMonths) {
           inputRehabInMonths.classList.add("has-error");
         }
+        if (validation.timeToRefinance) {
+          inputTimeToRefinance.classList.add("has-error");
+        }
+        if (validation.ltv) {
+          inputLtv.classList.add("has-error");
+        }
+        if (validation.refinanceInterestRate) {
+          inputRefinanceInterestRate.classList.add("has-error");
+        }
+        if (validation.refinanceClosingCosts) {
+          inputRefinanceClosingCosts.classList.add("has-error");
+        }
 
       } else {
         const [data, monthlyData] = returnsCashFlowCalculator
@@ -239,6 +318,12 @@ window.addEventListener("load", async () => {
           .setClosingCosts(closingCosts)
           .setRehabCosts(rehabCosts)
           .setRehabInMonths(rehabInMonths)
+          .setRefinance(refinance)
+          .setTimeToRefinance(timeToRefinance)
+          .setLtv(ltv)
+          .setRefinanceAmortization(refinanceAmortization)
+          .setRefinanceInterestRate(refinanceInterestRate)
+          // Not referenced in calculator .setRefinanceClosingCosts(refinanceClosingCosts)
           .calculate();
         returnsCashFlowChart.setData(data).update();
         Wized.data.setVariable("data", data);
