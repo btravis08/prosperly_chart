@@ -117,6 +117,36 @@ window.addEventListener("load", async () => {
           onlyInteger: true,
           greaterThan: 0,
         },
+      },
+      interestRate: {
+        numericality: {
+          greaterThan: 0,
+          lessThanOrEqualTo: 20,
+          format: {
+            pattern: /^\d+(\.\d{1,2})?$/,
+            message:
+              "must be a positive number with up to 2 decimal places and less than or equal to 20",
+          },
+        },
+      },
+      closingCosts: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+        }
+      },
+      rehabCosts: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+        }
+      },
+      rehabInMonths: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+          lessThan: 360,
+        }
       }
     };
     // Setup Input Controls
@@ -125,7 +155,11 @@ window.addEventListener("load", async () => {
     const inputMortgage = document.querySelector("input[w-el='inputMortgage']");
     const inputDownPaymentAmount = document.querySelectorAll('input[type="radio"][name="downPaymentAmount"]');
     const inputAmortization = document.querySelector("select[w-el='inputAmortizationValue']");
-    
+    const inputInterestRate = document.querySelector("input[w-el='inputInterestRate']");
+    const inputClosingCosts = document.querySelector("input[w-el='inputClosingCosts']");
+    const inputRehabCosts = document.querySelector("input[w-el='inputRehabCosts']");
+    const inputRehabInMonths = document.querySelector("input[w-el='inputRehabInMonths']");
+
     // Setup Event Listeners
     inputPurchasePrice.addEventListener("input", updateCashFlow);
     inputArv.addEventListener("input", updateCashFlow);
@@ -134,6 +168,10 @@ window.addEventListener("load", async () => {
       button.addEventListener('click', updateCashFlow);
     });
     inputAmortization.addEventListener("change", updateCashFlow);
+    inputInterestRate.addEventListener("input", updateCashFlow);
+    inputClosingCosts.addEventListener("input", updateCashFlow);
+    inputRehabCosts.addEventListener("input", updateCashFlow);
+    inputRehabInMonths.addEventListener("input", updateCashFlow);
 
 
     function updateCashFlow(event) {
@@ -141,6 +179,10 @@ window.addEventListener("load", async () => {
       const arv = parseInt(inputArv.value);
       const mortgage = parseInt(inputMortgage.value);
       const amortization = parseInt(inputAmortization.value);
+      const interestRate = parseInt(inputInterestRate.value);
+      const closingCosts = parseInt(inputClosingCosts.value);
+      const rehabCosts = parseInt(inputRehabCosts.value);
+      const rehabInMonths = parseInt(inputRehabInMonths.value);
 
       // Get the down payment value from the checked radio button
       const inputDownPaymentAmount = document.querySelector('input[name="downPaymentAmount"]:checked');
@@ -156,18 +198,33 @@ window.addEventListener("load", async () => {
       // Reset the previous UI error state
       inputPurchasePrice.classList.remove("has-error");
       inputArv.classList.remove("has-error");
+      inputInterestRate.classList.remove("has-error");
+
+      inputClosingCosts.classList.remove("has-error");
+      inputRehabCosts.classList.remove("has-error");
+      inputRehabInMonths.classList.remove("has-error");
 
       // Validate the input values using validate.js
-      const validation = validate({ purchasePrice: purchasePrice, arv: arv }, constraints);
+      const validation = validate({ purchasePrice, arv, interestRate, closingCosts, rehabCosts, rehabInMonths }, constraints);
 
       if (validation) {
         if (validation.purchasePrice) {
           // Set the UI error state for inputPurchasePrice
-          inputPurchasePrice.classList.add("has-error");
         }
         if (validation.arv) {
-          // Set the UI error state for inputPurchasePrice
           inputArv.classList.add("has-error");
+        }
+        if (validation.interestRate) {
+          inputInterestRate.classList.add("has-error");
+        }
+        if (validation.closingCosts) {
+          inputClosingCosts.classList.add("has-error");
+        }
+        if (validation.rehabCosts) {
+          inputRehabCosts.classList.add("has-error");
+        }
+        if (validation.rehabInMonths) {
+          inputRehabInMonths.classList.add("has-error");
         }
 
       } else {
@@ -178,6 +235,10 @@ window.addEventListener("load", async () => {
           .setLoanAmount(loanAmount)
           .setDownPaymentAmount(downPaymentAmount)
           .setAmortization(amortization)
+          .setInterestRate(interestRate)
+          .setClosingCosts(closingCosts)
+          .setRehabCosts(rehabCosts)
+          .setRehabInMonths(rehabInMonths)
           .calculate();
         returnsCashFlowChart.setData(data).update();
         Wized.data.setVariable("data", data);
