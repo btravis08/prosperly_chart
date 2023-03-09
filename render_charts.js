@@ -103,330 +103,46 @@ window.addEventListener("load", async () => {
     returnsCashFlowChart.setData(data).setChartType(selectedChartType).update();
     updateMobileReturnsCashFlowChartContent();
 
-    // Listen for form input changes and re-render chart
-    Wized.data.listen("i.input_mortgage", async () => {    
-      const mortgage = await Wized.data.get("i.input_mortgage");   
-      console.log("Value of i.input_mortgage changed to: ", mortgage);
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setMortgage(mortgage)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
+    // Define the validation constraints
+    const inputPurchasePrice = document.querySelector("input[w-el='inputPurchasePrice']");
+    // const radioButtons = document.querySelectorAll('input[type="radio"][name="downPaymentAmount"]');
+
+    inputPurchasePrice.addEventListener("input", updateCashFlow);
+    radioButtons.forEach(button => {
+      button.addEventListener('click', updateCashFlow);
     });
 
-    Wized.data.listen("i.input_purchase_price", async () => {    
-      const purchasePrice = await Wized.data.get("i.input_purchase_price");   
-      console.log("Value of i.input_purchase_price changed to: ", purchasePrice);
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setPurchasePrice(purchasePrice)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });
+    function updateCashFlow(event) {
+      const purchasePrice = parseInt(inputPurchasePrice.value);
 
-    Wized.data.listen("i.input_arv", async () => {    
-  	const arv = await Wized.data.get("i.input_arv");   
-  	console.log("Value of i.input_arv changed to: ", arv);
-  	const [data, monthlyData] = returnsCashFlowCalculator
-    	.setArv(arv)
-    	.calculate();
-	returnsCashFlowChart.setData(data).update(); 
-      Wized.data.setVariable("data", data); 
-    });
-    
-    Wized.data.listen("i.input_amortization_value", async () => {    
-      const amortization = await Wized.data.get("i.input_amortization_value");   
-      console.log("Value of i.input_amortization_value changed to: ", amortization);
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setAmortization(amortization)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });
+      // Get the down payment value from the checked radio button
+      // const checkedRadioButton = document.querySelector('input[name="downPaymentAmount"]:checked');
+      // const downPaymentAmount = checkedRadioButton.value / 100 * purchasePrice;
+      // const loanAmount = purchasePrice - downPaymentAmount; // Re-calculate the loan amount
 
-    Wized.data.listen("i.input_interest_rate", async () => {    
-      const interestRate = await Wized.data.get("i.input_interest_rate");   
-      console.log("Value of i.input_amortization changed to: ", interestRate);
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setInterestRate(interestRate)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });
-	  
-    Wized.data.listen("i.input_closing_costs", async () => {    
-      const closingCosts = await Wized.data.get("i.input_closing_costs");   
-      console.log("Value of i.input_closing_costs changed to: ", closingCosts);
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setClosingCosts(closingCosts)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });
-	  
-    Wized.data.listen("i.input_rehab_costs", async () => {    
-      const rehabCosts = await Wized.data.get("i.input_rehab_costs");   
-      console.log("Value of i.input_rehab_costs changed to: ", rehabCosts);
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setRehabCosts(rehabCosts)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });
+      // Reset the previous UI error state
+      inputPurchasePrice.classList.remove("has-error");
 
-    Wized.data.listen("i.input_rehab_in_months", async () => {    
-      const rehabInMonths = await Wized.data.get("i.input_rehab_in_months");   
-      console.log("Value of i.input_rehab_in_months changed to: ", rehabInMonths);
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setRehabInMonths(rehabInMonths)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });
-      
-    Wized.data.listen("i.input_down_payment_30", async () => {
-      const downPaymentAmount = await Wized.data.get("i.input_down_payment_30") / 100 * purchasePrice;
-      const loanAmount = purchasePrice - downPaymentAmount;
-      console.log("Down Payment Amount:", downPaymentAmount);
-      console.log("Loan Amount:", loanAmount);        
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setDownPaymentAmount(downPaymentAmount)
-      .setLoanAmount(loanAmount)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });
+      // Validate the input values using validate.js
+      const validation = validate({ purchasePrice: purchasePrice }, constraints);
 
-    Wized.data.listen("i.input_refinance", async () => {
-      const refinance = await Wized.data.get("i.input_refinance");
-      console.log("Refinance:", refinance);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setRefinance(refinance)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });
-	  
-    Wized.data.listen("i.input_time_to_refinance", async () => {
-      const timeToRefinance = await Wized.data.get("i.input_time_to_refinance");
-      console.log("Value of i.input_time_to_refinance changed to: ", timeToRefinance);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setTimeToRefinance(timeToRefinance)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });
-	  
-    Wized.data.listen("i.input_ltv", async () => {
-      const ltv = await Wized.data.get("i.input_ltv");
-      console.log("Value of i.input_ltv changed to: ", ltv);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setLtv(ltv)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });
+      if (validation) {
+        if (validation.purchasePrice) {
+          // Set the UI error state for inputPurchasePrice
+          inputPurchasePrice.classList.add("has-error");
+        }
 
-    Wized.data.listen("i.input_refi_amortization_value", async () => {
-      const refinanceAmortization = await Wized.data.get("i.input_refi_amortization_value");
-      console.log("Value of i.input_refi_amortization_value changed to: ", refinanceAmortization);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setRefinanceAmortization(refinanceAmortization)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });
-	  
-    Wized.data.listen("i.input_refi_interest_rate", async () => {
-      const refinanceInterestRate = await Wized.data.get("i.input_refi_interest_rate");
-      console.log("Value of i.input_refi_interest_rate changed to: ", refinanceInterestRate);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setRefinanceInterestRate(refinanceInterestRate)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });
-	  
-    Wized.data.listen("i.input_rental_income", async () => {
-      const rentalIncome = await Wized.data.get("i.input_rental_income");
-      console.log("Value of i.input_rental_income changed to: ", rentalIncome);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setRentalIncome(rentalIncome)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data);  
-    });
-	  
-    Wized.data.listen("i.input_other_income", async () => {
-      const otherIncome = await Wized.data.get("i.input_other_income");
-      console.log("Value of i.input_other_income changed to: ", otherIncome);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setOtherIncome(otherIncome)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });
-	  
-    Wized.data.listen("i.input_vacancy", async () => {
-      const vacancyRate = await Wized.data.get("i.input_vacancy");
-      console.log("Value of i.input_vacancy changed to: ", vacancyRate);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setVacancyRate(vacancyRate)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });
-	  
-    Wized.data.listen("i.input_repairs_maintenance", async () => {
-      const maintenanceRepairsRate = await Wized.data.get("i.input_repairs_maintenance");
-      console.log("Value of i.input_repairs_maintenance changed to: ", maintenanceRepairsRate);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setMaintenanceRepairsRate(maintenanceRepairsRate)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });	  
-
-    Wized.data.listen("i.input_cap_ex", async () => {
-      const capExRate = await Wized.data.get("i.input_cap_ex");
-      console.log("Value of i.input_cap_ex changed to: ", capExRate);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setCapExRate(capExRate)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });	
-
-    Wized.data.listen("i.input_management", async () => {
-      const propertyManagementFee = await Wized.data.get("i.input_management");
-      console.log("Value of i.input_management changed to: ", propertyManagementFee);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setPropertyManagementFee(propertyManagementFee)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });	  
-
-    Wized.data.listen("i.input_electricity", async () => {
-      const electricity = await Wized.data.get("i.input_electricity");
-      console.log("Value of i.input_electricity changed to: ", electricity);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setElectricity(electricity)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });	  
-
-    Wized.data.listen("i.input_water_sewer", async () => {
-      const waterSewer = await Wized.data.get("i.input_electricity");
-      console.log("Value of i.input_electricity changed to: ", waterSewer);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setElectricity(electricity)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });	  	
-
-    Wized.data.listen("i.input_gas", async () => {
-      const gas = await Wized.data.get("i.input_gas");
-      console.log("Value of i.input_gas changed to: ", gas);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setGas(gas)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });	 
-
-
-    Wized.data.listen("i.input_trash", async () => {
-      const trash = await Wized.data.get("i.input_trash");
-      console.log("Value of i.input_trash changed to: ", trash);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setTrash(trash)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });	
-    
-    Wized.data.listen("i.input_property_insurance", async () => {
-      const propertyInsurance = await Wized.data.get("i.input_property_insurance");
-      console.log("Value of i.input_property_insurance changed to: ", propertyInsurance);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setPropertyInsurance(propertyInsurance)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });	
-
-    Wized.data.listen("i.input_other_expenses", async () => {
-      const otherExpenses = await Wized.data.get("i.input_other_expenses");
-      console.log("Value of i.input_other_expenses changed to: ", otherExpenses);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setOtherExpenses(otherExpenses)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });	
-
-    Wized.data.listen("i.input_property_tax_rate", async () => {
-      const propertyTaxRate = await Wized.data.get("i.input_property_tax_rate");
-      console.log("Value of i.input_property_tax_rate changed to: ", propertyTaxRate);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setPropertyTaxRate(propertyTaxRate)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });	
-
-    Wized.data.listen("i.input_hoa", async () => {
-      const hoa = await Wized.data.get("i.input_hoa");
-      console.log("Value of i.input_hoa changed to: ", hoa);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setHoa(hoa)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });	
-
-    Wized.data.listen("i.input_income_growth", async () => {
-      const incomeGrowth = await Wized.data.get("i.input_income_growth");
-      console.log("Value of i.input_income_growth changed to: ", incomeGrowth);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setIncomeGrowth(incomeGrowth)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });	
-
-    Wized.data.listen("i.input_property_value_growth", async () => {
-      const propertyValueGrowth = await Wized.data.get("i.input_property_value_growth");
-      console.log("Value of i.input_property_value_growth changed to: ", propertyValueGrowth);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setPropertyValueGrowth(propertyValueGrowth)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });	
-
-    Wized.data.listen("i.input_expense_growth", async () => {
-      const expenseGrowth = await Wized.data.get("i.input_expense_growth");
-      console.log("Value of i.input_expense_growth changed to: ", expenseGrowth);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setExpenseGrowth(expenseGrowth)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });	
-
-    Wized.data.listen("i.input_property_tax_growth", async () => {
-      const propertyTaxGrowth = await Wized.data.get("i.input_property_tax_growth");
-      console.log("Value of i.input_property_tax_growth changed to: ", propertyTaxGrowth);       
-      const [data, monthlyData] = returnsCashFlowCalculator
-      .setPropertyTaxGrowth(propertyTaxGrowth)
-      .calculate();
-      returnsCashFlowChart.setData(data).update();
-      Wized.data.setVariable("data", data); 
-    });	
+      } else {
+        const [data, monthlyData] = returnsCashFlowCalculator
+          .setPurchasePrice(purchasePrice)
+          //.setDownPaymentAmount(downPaymentAmount)
+          //.setLoanAmount(loanAmount)
+          .calculate();
+        returnsCashFlowChart.setData(data).update();
+	Wized.data.setVariable("data", data); 
+        console.log("New data populated from user input", data)
+      }
+    }
 
     // Set up chart type control
     document
