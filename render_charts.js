@@ -43,7 +43,6 @@ window.addEventListener("load", async () => {
       property_tax_growth: propertyTaxGrowth,
     } = report;
 
-    let utilities = gas + waterSewer + electricity + trash;
     let refinanceLoanAmount = arv * ltv / 100;
     let downPaymentAmount = downPayment / 100 * purchasePrice;
     let loanAmount = purchasePrice - downPaymentAmount;
@@ -178,6 +177,105 @@ window.addEventListener("load", async () => {
           onlyInteger: true,
           greaterThan: 0,
         }
+      },
+      rentalIncome: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+        }
+      },
+      otherIncome: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+        }
+      },
+      vacancy: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+          lessThan: 100,
+        }
+      },
+      repairsMaintenance: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+          lessThan: 100,
+        }
+      },
+      capEx: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+          lessThan: 100,
+        }
+      },
+      management: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+          lessThan: 100,
+        }
+      },
+      utilities: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+        }
+      },
+      hoa: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+        }
+      },
+      propertyTaxRate: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+          lessThan: 100,
+        }
+      },
+      propertyInsurance: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+        }
+      },
+      otherExpenses: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+        }
+      },
+      incomeGrowth: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+          lessThan: 100,
+        }
+      },
+      propertyValueGrowth: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+          lessThan: 100,
+        }
+      },
+      expenseGrowth: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+          lessThan: 100,
+        }
+      },
+      propertyTaxGrowth: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+          lessThan: 100,
+        }
       }
     };
     // Setup Input Controls
@@ -196,6 +294,22 @@ window.addEventListener("load", async () => {
     const inputRefinanceAmortization = document.querySelector("select[w-el='inputRefiAmortizationValue']");
     const inputRefinanceInterestRate = document.querySelector("input[w-el='inputRefiInterestRate']");
     const inputRefinanceClosingCosts = document.querySelector("input[w-el='inputRefiClosingCosts']");
+    const inputRentalIncome = document.querySelector("input[w-el='inputRentalIncome']");
+    const inputOtherIncome = document.querySelector("input[w-el='inputOtherIncome']");
+    const inputVacancy = document.querySelector("input[w-el='inputVacancy']");
+    const inputRepairsMaintenance = document.querySelector("input[w-el='inputRepairsMaintenance']");
+    const inputCapEx = document.querySelector("input[w-el='inputCapEx']");
+    const inputManagement = document.querySelector("input[w-el='inputManagement']");
+    const inputUtilities = document.querySelector("input[w-el='inputUtilities']");
+    const inputHoa = document.querySelector("input[w-el='inputHoa']");
+    const inputPropertyTaxRate = document.querySelector("input[w-el='inputPropertyTaxRate']");
+    const inputPropertyInsurance = document.querySelector("input[w-el='inputPropertyInsurance']");
+    const inputOtherExpenses = document.querySelector("input[w-el='inputOtherExpenses']");
+    const inputIncomeGrowth = document.querySelector("input[w-el='inputIncomeGrowth']");
+    const inputPropertyValueGrowth = document.querySelector("input[w-el='inputPropertyValueGrowth']");
+    const inputExpenseGrowth = document.querySelector("input[w-el='inputExpenseGrowth']");
+    const inputPropertyTaxGrowth = document.querySelector("input[w-el='inputPropertyTaxGrowth']");
+
 
     // Setup Event Listeners
     inputPurchasePrice.addEventListener("input", updateCashFlow);
@@ -214,6 +328,22 @@ window.addEventListener("load", async () => {
     inputRefinanceInterestRate.addEventListener("input", updateCashFlow);
     inputRefinanceClosingCosts.addEventListener("input", updateCashFlow);
 
+    inputRentalIncome.addEventListener("input", updateCashFlow);
+    inputOtherIncome.addEventListener("input", updateCashFlow);
+    inputVacancy.addEventListener("input", updateCashFlow);
+    inputRepairsMaintenance.addEventListener("input", updateCashFlow);
+    inputCapEx.addEventListener("input", updateCashFlow);
+    inputManagement.addEventListener("input", updateCashFlow);
+    inputUtilities.addEventListener("input", updateCashFlow);
+    inputHoa.addEventListener("input", updateCashFlow);
+    inputPropertyTaxRate.addEventListener("input", updateCashFlow);
+    inputPropertyInsurance.addEventListener("input", updateCashFlow);
+    inputOtherExpenses.addEventListener("input", updateCashFlow);
+    inputIncomeGrowth.addEventListener("input", updateCashFlow);
+    inputPropertyValueGrowth.addEventListener("input", updateCashFlow);
+    inputExpenseGrowth.addEventListener("input", updateCashFlow);
+    inputPropertyTaxGrowth.addEventListener("input", updateCashFlow);
+
 
     function updateCashFlow(event) {
       const purchasePrice = parseInt(inputPurchasePrice.value);
@@ -230,6 +360,22 @@ window.addEventListener("load", async () => {
       const refinanceAmortization = parseInt(inputRefinanceAmortization.value);
       const refinanceInterestRate = parseInt(inputRefinanceInterestRate.value);
       const refinanceClosingCosts = parseInt(inputRefinanceClosingCosts.value);
+
+      const rentalIncome = parseInt(inputRentalIncome.value);
+      const otherIncome = parseInt(inputOtherIncome.value);
+      const vacancy = parseInt(inputVacancy.value);
+      const repairsMaintenance = parseInt(inputRepairsMaintenance.value);
+      const capEx = parseInt(inputCapEx.value);
+      const management = parseInt(inputManagement.value);
+      const utilities = parseInt(inputUtilities.value);
+      const hoa = parseInt(inputHoa.value);
+      const propertyTaxRate = parseInt(inputPropertyTaxRate.value);
+      const propertyInsurance = parseInt(inputPropertyInsurance.value);
+      const otherExpenses = parseInt(inputOtherExpenses.value);
+      const incomeGrowth = parseInt(inputIncomeGrowth.value);
+      const propertyValueGrowth = parseInt(inputPropertyValueGrowth.value);
+      const expenseGrowth = parseInt(inputExpenseGrowth.value);
+      const propertyTaxGrowth = parseInt(inputPropertyTaxGrowth.value);
 
       // Get the down payment value from the checked radio button
       const inputDownPaymentAmount = document.querySelector('input[name="downPaymentAmount"]:checked');
@@ -259,6 +405,21 @@ window.addEventListener("load", async () => {
       inputLtv.classList.remove("has-error");
       inputRefinanceInterestRate.classList.remove("has-error");
       inputRefinanceClosingCosts.classList.remove("has-error");
+      inputRentalIncome.classList.remove("has-error");
+      inputOtherIncome.classList.remove("has-error");
+      inputVacancy.classList.remove("has-error");
+      inputRepairsMaintenance.classList.remove("has-error");
+      inputCapEx.classList.remove("has-error");
+      inputManagement.classList.remove("has-error");
+      inputUtilities.classList.remove("has-error");
+      inputHoa.classList.remove("has-error");
+      inputPropertyTaxRate.classList.remove("has-error");
+      inputPropertyInsurance.classList.remove("has-error");
+      inputOtherExpenses.classList.remove("has-error");
+      inputIncomeGrowth.classList.remove("has-error");
+      inputPropertyValueGrowth.classList.remove("has-error");
+      inputExpenseGrowth.classList.remove("has-error");
+      inputPropertyTaxGrowth.classList.remove("has-error");
 
       // Validate the input values using validate.js
       const validation = validate({
@@ -271,12 +432,27 @@ window.addEventListener("load", async () => {
         timeToRefinance,
         ltv,
         refinanceInterestRate,
-        refinanceClosingCosts
+        refinanceClosingCosts,
+        rentalIncome,
+        otherIncome,
+        vacancy,
+        repairsMaintenance,
+        capEx,
+        management,
+        utilities,
+        hoa,
+        propertyTaxRate,
+        propertyInsurance,
+        otherExpenses,
+        incomeGrowth,
+        propertyValueGrowth,
+        expenseGrowth,
+        propertyTaxGrowth
       }, constraints);
 
       if (validation) {
         if (validation.purchasePrice) {
-          // Set the UI error state for inputPurchasePrice
+          inputPurchasePrice.classList.add("has-error");
         }
         if (validation.arv) {
           inputArv.classList.add("has-error");
@@ -305,6 +481,51 @@ window.addEventListener("load", async () => {
         if (validation.refinanceClosingCosts) {
           inputRefinanceClosingCosts.classList.add("has-error");
         }
+        if (validation.rentalIncome) {
+          inputRentalIncome.classList.add("has-error");
+        }
+        if (validation.otherIncome) {
+          inputOtherIncome.classList.add("has-error");
+        }
+        if (validation.vacancy) {
+          inputVacancy.classList.add("has-error");
+        }
+        if (validation.repairsMaintenance) {
+          inputRepairsMaintenance.classList.add("has-error");
+        }
+        if (validation.capEx) {
+          inputCapEx.classList.add("has-error");
+        }
+        if (validation.management) {
+          inputManagement.classList.add("has-error");
+        }
+        if (validation.utilities) {
+          inputUtilities.classList.add("has-error");
+        }
+        if (validation.hoa) {
+          inputHoa.classList.add("has-error");
+        }
+        if (validation.propertyTaxRate) {
+          inputPropertyTaxRate.classList.add("has-error");
+        }
+        if (validation.propertyInsurance) {
+          inputPropertyInsurance.classList.add("has-error");
+        }
+        if (validation.otherExpenses) {
+          inputOtherExpenses.classList.add("has-error");
+        }
+        if (validation.incomeGrowth) {
+          inputIncomeGrowth.classList.add("has-error");
+        }
+        if (validation.propertyValueGrowth) {
+          inputPropertyValueGrowth.classList.add("has-error");
+        }
+        if (validation.expenseGrowth) {
+          inputExpenseGrowth.classList.add("has-error");
+        }
+        if (validation.propertyTaxGrowth) {
+          inputPropertyTaxGrowth.classList.add("has-error");
+        }
 
       } else {
         const [data, monthlyData] = returnsCashFlowCalculator
@@ -323,6 +544,21 @@ window.addEventListener("load", async () => {
           .setLtv(ltv)
           .setRefinanceAmortization(refinanceAmortization)
           .setRefinanceInterestRate(refinanceInterestRate)
+          .setRentalIncome(rentalIncome)
+          .setOtherIncome(otherIncome)
+          .setVacancyRate(vacancy)
+          .SetMaintenanceRepairsRate(repairsMaintenance)
+          .setCapExRate(capEx)
+          .setPropertyManagementFee(management)
+          .setUtilities(utilities)
+          .setHoa(hoa)
+          .setPropertyTaxRate(propertyTaxRate)
+          .setPropertyInsurance(propertyInsurance)
+          .setOtherExpenses(otherExpenses)
+          .setIncomeGrowth(incomeGrowth)
+          .setPropertyValueGrowth(propertyValueGrowth)
+          .setExpenseGrowth(expenseGrowth)
+          .setPropertyTaxGrowth(propertyTaxGrowth)
           // Not referenced in calculator .setRefinanceClosingCosts(refinanceClosingCosts)
           .calculate();
         returnsCashFlowChart.setData(data).update();
@@ -381,9 +617,9 @@ window.addEventListener("load", async () => {
             document.querySelector("#chartYear").textContent = d.year;
             document.querySelector("#atYear").textContent = "at year";
             document.querySelector("#chartValue0").textContent = `${d.values[0].name
-              }: ${formatValue(d.values[0].value)}`;
-            document.querySelector("#chartValue1").textContent = `${d.values[1].name
-              }: ${formatValue(d.values[1].value)}`;
+            }: ${formatValue(d.values[0].value)}`;
+          document.querySelector("#chartValue1").textContent = `${d.values[1].name
+            }: ${formatValue(d.values[1].value)}`;
             document.querySelector("#circle_0").textContent = "circle";
             document.querySelector("#circle_1").textContent = "circle";
             document.querySelector("#chartLTV").style.display = "none";
@@ -433,4 +669,3 @@ window.addEventListener("load", async () => {
   });
 
 });
-
