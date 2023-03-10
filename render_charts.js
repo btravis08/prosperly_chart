@@ -342,35 +342,35 @@ window.addEventListener("load", async () => {
 
 
     function updateCashFlow(event) {
-      const purchasePrice = parseInt(inputPurchasePrice.value);
-      const arv = parseInt(inputArv.value);
-      const mortgage = parseInt(inputMortgage.value);
-      const amortization = parseInt(inputAmortization.value);
-      const interestRate = parseInt(inputInterestRate.value);
-      const closingCosts = parseInt(inputClosingCosts.value);
-      const rehabCosts = parseInt(inputRehabCosts.value);
-      const rehabInMonths = parseInt(inputRehabInMonths.value);
-      const refinance = parseInt(inputRefinance.value);
-      const timeToRefinance = parseInt(inputTimeToRefinance.value);
-      const ltv = parseInt(inputLtv.value);
-      const refinanceAmortization = parseInt(inputRefinanceAmortization.value);
-      const refinanceInterestRate = parseInt(inputRefinanceInterestRate.value);
-      const refinanceClosingCosts = parseInt(inputRefinanceClosingCosts.value);
-      const rentalIncome = parseInt(inputRentalIncome.value);
-      const otherIncome = parseInt(inputOtherIncome.value);
-      const vacancy = parseInt(inputVacancy.value);
-      const repairsMaintenance = parseInt(inputRepairsMaintenance.value);
-      const capEx = parseInt(inputCapEx.value);
-      const management = parseInt(inputManagement.value);
-      const utilities = parseInt(inputUtilities.value);
-      const hoa = parseInt(inputHoa.value);
-      const propertyTaxRate = parseInt(inputPropertyTaxRate.value);
-      const propertyInsurance = parseInt(inputPropertyInsurance.value);
-      const otherExpenses = parseInt(inputOtherExpenses.value);
-      const incomeGrowth = parseInt(inputIncomeGrowth.value);
-      const propertyValueGrowth = parseInt(inputPropertyValueGrowth.value);
-      const expenseGrowth = parseInt(inputExpenseGrowth.value);
-      const propertyTaxGrowth = parseInt(inputPropertyTaxGrowth.value);
+      const purchasePrice = parseFloat(inputPurchasePrice.value);
+      const arv = parseFloat(inputArv.value);
+      const mortgage = inputMortgage.check;
+      const amortization = inputAmortization.value;
+      const interestRate = parseFloat(inputInterestRate.value);
+      const closingCosts = parseFloat(inputClosingCosts.value);
+      const rehabCosts = parseFloat(inputRehabCosts.value);
+      const rehabInMonths = parseFloat(inputRehabInMonths.value);
+      const refinance = inputRefinance.check;
+      const timeToRefinance = parseFloat(inputTimeToRefinance.value);
+      const ltv = parseFloat(inputLtv.value);
+      const refinanceAmortization = inputRefinanceAmortization.value;
+      const refinanceInterestRate = parseFloat(inputRefinanceInterestRate.value);
+      const refinanceClosingCosts = parseFloat(inputRefinanceClosingCosts.value);
+      const rentalIncome = parseFloat(inputRentalIncome.value);
+      const otherIncome = parseFloat(inputOtherIncome.value);
+      const vacancy = parseFloat(inputVacancy.value);
+      const repairsMaintenance = parseFloat(inputRepairsMaintenance.value);
+      const capEx = parseFloat(inputCapEx.value);
+      const management = parseFloat(inputManagement.value);
+      const utilities = parseFloat(inputUtilities.value);
+      const hoa = parseFloat(inputHoa.value);
+      const propertyTaxRate = parseFloat(inputPropertyTaxRate.value);
+      const propertyInsurance = parseFloat(inputPropertyInsurance.value);
+      const otherExpenses = parseFloat(inputOtherExpenses.value);
+      const incomeGrowth = parseFloat(inputIncomeGrowth.value);
+      const propertyValueGrowth = parseFloat(inputPropertyValueGrowth.value);
+      const expenseGrowth = parseFloat(inputExpenseGrowth.value);
+      const propertyTaxGrowth = parseFloat(inputPropertyTaxGrowth.value);
 
       // Get the down payment value from the checked radio button
       const inputDownPaymentAmount = document.querySelector('input[name="downPaymentAmount"]:checked');
@@ -546,7 +546,7 @@ window.addEventListener("load", async () => {
           .setCapExRate(capEx)
           .setPropertyManagementFee(management)
           .setUtilities(utilities)
-          .setHoa(hoa)
+          //.setHoa(hoa)
           .setPropertyTaxRate(propertyTaxRate)
           .setPropertyInsurance(propertyInsurance)
           .setOtherExpenses(otherExpenses)
