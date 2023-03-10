@@ -154,7 +154,7 @@ window.addEventListener("load", async () => {
       ltv: {
         numericality: {
           onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
           lessThan: 100,
         }
       },
@@ -189,31 +189,47 @@ window.addEventListener("load", async () => {
       },
       vacancy: {
         numericality: {
-          onlyInteger: true,
           greaterThanOrEqualTo: 0,
           lessThan: 100,
-        }
+          format: {
+            pattern: /^\d+(\.\d{1,2})?$/,
+            message:
+              "must be a positive number with up to 2 decimal places and less than or equal to 20",
+          },
+        },
       },
       repairsMaintenance: {
         numericality: {
-          onlyInteger: true,
           greaterThanOrEqualTo: 0,
           lessThan: 100,
-        }
+          format: {
+            pattern: /^\d+(\.\d{1,2})?$/,
+            message:
+              "must be a positive number with up to 2 decimal places and less than or equal to 20",
+          },
+        },
       },
       capEx: {
         numericality: {
-          onlyInteger: true,
           greaterThanOrEqualTo: 0,
           lessThan: 100,
-        }
+          format: {
+            pattern: /^\d+(\.\d{1,2})?$/,
+            message:
+              "must be a positive number with up to 2 decimal places and less than or equal to 20",
+          },
+        },
       },
       management: {
         numericality: {
-          onlyInteger: true,
           greaterThanOrEqualTo: 0,
           lessThan: 100,
-        }
+          format: {
+            pattern: /^\d+(\.\d{1,2})?$/,
+            message:
+              "must be a positive number with up to 2 decimal places and less than or equal to 20",
+          },
+        },
       },
       utilities: {
         numericality: {
@@ -229,10 +245,14 @@ window.addEventListener("load", async () => {
       },
       propertyTaxRate: {
         numericality: {
-          onlyInteger: true,
           greaterThan: 0,
           lessThan: 100,
-        }
+          format: {
+            pattern: /^\d+(\.\d{1,2})?$/,
+            message:
+              "must be a positive number with up to 2 decimal places and less than or equal to 20",
+          },
+        },
       },
       propertyInsurance: {
         numericality: {
@@ -248,31 +268,47 @@ window.addEventListener("load", async () => {
       },
       incomeGrowth: {
         numericality: {
-          onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
           lessThan: 100,
-        }
+          format: {
+            pattern: /^\d+(\.\d{1,2})?$/,
+            message:
+              "must be a positive number with up to 2 decimal places and less than or equal to 20",
+          },
+        },
       },
       propertyValueGrowth: {
         numericality: {
-          onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
           lessThan: 100,
-        }
+          format: {
+            pattern: /^\d+(\.\d{1,2})?$/,
+            message:
+              "must be a positive number with up to 2 decimal places and less than or equal to 20",
+          },
+        },
       },
       expenseGrowth: {
         numericality: {
-          onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
           lessThan: 100,
-        }
+          format: {
+            pattern: /^\d+(\.\d{1,2})?$/,
+            message:
+              "must be a positive number with up to 2 decimal places and less than or equal to 20",
+          },
+        },
       },
       propertyTaxGrowth: {
         numericality: {
-          onlyInteger: true,
           greaterThanOrEqualTo: 0,
           lessThan: 100,
-        }
+          format: {
+            pattern: /^\d+(\.\d{1,2})?$/,
+            message:
+              "must be a positive number with up to 2 decimal places and less than or equal to 20",
+          },
+        },
       }
     };
     // Setup Input Controls
@@ -342,11 +378,11 @@ window.addEventListener("load", async () => {
 
 
     function updateCashFlow(event) {
-      const purchasePrice = parseFloat(inputPurchasePrice.value);
+      const purchasePrice = parseInt(inputPurchasePrice.value);
       const arv = parseInt(inputArv.value);
       const mortgage = inputMortgage.checked;
       const amortization = parseInt(inputAmortization.value);
-      const interestRate = parseInt(inputInterestRate.value);
+      const interestRate = parseFloat(inputInterestRate.value);
       const closingCosts = parseInt(inputClosingCosts.value);
       const rehabCosts = parseInt(inputRehabCosts.value);
       const rehabInMonths = parseInt(inputRehabInMonths.value);
@@ -354,23 +390,23 @@ window.addEventListener("load", async () => {
       const timeToRefinance = parseInt(inputTimeToRefinance.value);
       const ltv = parseInt(inputLtv.value);
       const refinanceAmortization = parseInt(inputRefinanceAmortization.value);
-      const refinanceInterestRate = parseInt(inputRefinanceInterestRate.value);
+      const refinanceInterestRate = parseFloat(inputRefinanceInterestRate.value);
       const refinanceClosingCosts = parseInt(inputRefinanceClosingCosts.value);
       const rentalIncome = parseInt(inputRentalIncome.value);
       const otherIncome = parseInt(inputOtherIncome.value);
-      const vacancy = parseInt(inputVacancy.value);
-      const repairsMaintenance = parseInt(inputRepairsMaintenance.value);
-      const capEx = parseInt(inputCapEx.value);
-      const management = parseInt(inputManagement.value);
+      const vacancy = parseFloat(inputVacancy.value);
+      const repairsMaintenance = parseFloat(inputRepairsMaintenance.value);
+      const capEx = parseFloat(inputCapEx.value);
+      const management = parseFloat(inputManagement.value);
       const utilities = parseInt(inputUtilities.value);
       const hoa = parseInt(inputHoa.value);
-      const propertyTaxRate = parseInt(inputPropertyTaxRate.value);
+      const propertyTaxRate = parseFloat(inputPropertyTaxRate.value);
       const propertyInsurance = parseInt(inputPropertyInsurance.value);
       const otherExpenses = parseInt(inputOtherExpenses.value);
-      const incomeGrowth = parseInt(inputIncomeGrowth.value);
-      const propertyValueGrowth = parseInt(inputPropertyValueGrowth.value);
-      const expenseGrowth = parseInt(inputExpenseGrowth.value);
-      const propertyTaxGrowth = parseInt(inputPropertyTaxGrowth.value);
+      const incomeGrowth = parseFloat(inputIncomeGrowth.value);
+      const propertyValueGrowth = parseFloat(inputPropertyValueGrowth.value);
+      const expenseGrowth = parseFloat(inputExpenseGrowth.value);
+      const propertyTaxGrowth = parseFloat(inputPropertyTaxGrowth.value);
 
       // Get the down payment value from the checked radio button
       const inputDownPaymentAmount = document.querySelector('input[name="downPaymentAmount"]:checked');
