@@ -61,6 +61,7 @@ window.addEventListener("load", async () => {
       .setPropertyTaxRate(propertyTaxRate)
       .setPropertyInsurance(propertyInsurance)
       .setPmi(pmi)
+      .setHoa(hoa)
       .setPropertyManagementFee(propertyManagementFee)
       .setUtilities(utilities)
       .setMaintenanceRepairsRate(maintenanceRepairsRate)
@@ -324,7 +325,6 @@ window.addEventListener("load", async () => {
     inputRefinanceAmortization.addEventListener("input", updateCashFlow);
     inputRefinanceInterestRate.addEventListener("input", updateCashFlow);
     inputRefinanceClosingCosts.addEventListener("input", updateCashFlow);
-
     inputRentalIncome.addEventListener("input", updateCashFlow);
     inputOtherIncome.addEventListener("input", updateCashFlow);
     inputVacancy.addEventListener("input", updateCashFlow);
@@ -421,7 +421,7 @@ window.addEventListener("load", async () => {
       const validation = validate({
         purchasePrice,
         arv,
-        /*interestRate,
+        interestRate,
         closingCosts,
         rehabCosts,
         rehabInMonths,
@@ -443,7 +443,7 @@ window.addEventListener("load", async () => {
         incomeGrowth,
         propertyValueGrowth,
         expenseGrowth,
-        propertyTaxGrowth*/
+        propertyTaxGrowth
       }, constraints);
 
       if (validation) {
@@ -543,7 +543,7 @@ window.addEventListener("load", async () => {
           .setRentalIncome(rentalIncome)
           .setOtherIncome(otherIncome)
           .setVacancyRate(vacancy)
-          .SetMaintenanceRepairsRate(repairsMaintenance)
+          .setMaintenanceRepairsRate(repairsMaintenance)
           .setCapExRate(capEx)
           .setPropertyManagementFee(management)
           .setUtilities(utilities)
