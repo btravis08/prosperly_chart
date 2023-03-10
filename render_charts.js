@@ -344,13 +344,13 @@ window.addEventListener("load", async () => {
     function updateCashFlow(event) {
       const purchasePrice = parseInt(inputPurchasePrice.value);
       const arv = parseInt(inputArv.value);
-      const mortgage = parseInt(inputMortgage.value);
+      const mortgage = inputMortgage.checked;
       const amortization = parseInt(inputAmortization.value);
       const interestRate = parseInt(inputInterestRate.value);
       const closingCosts = parseInt(inputClosingCosts.value);
       const rehabCosts = parseInt(inputRehabCosts.value);
       const rehabInMonths = parseInt(inputRehabInMonths.value);
-      const refinance = parseInt(inputRefinance.value);
+      const refinance = inputRefinance.checked;
       const timeToRefinance = parseInt(inputTimeToRefinance.value);
       const ltv = parseInt(inputLtv.value);
       const refinanceAmortization = parseInt(inputRefinanceAmortization.value);
