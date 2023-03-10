@@ -309,36 +309,36 @@ window.addEventListener("load", async () => {
 
 
     // Setup Event Listeners
-    inputPurchasePrice.addEventListener("input", updateCashFlow);
-    inputArv.addEventListener("input", updateCashFlow);
+    inputPurchasePrice.addEventListener("change", updateCashFlow);
+    inputArv.addEventListener("change", updateCashFlow);
     inputMortgage.addEventListener("input", updateCashFlow);
     inputDownPaymentAmount.forEach(button => { button.addEventListener('click', updateCashFlow); });
-    inputAmortization.addEventListener("change", updateCashFlow);
-    inputInterestRate.addEventListener("input", updateCashFlow);
-    inputClosingCosts.addEventListener("input", updateCashFlow);
-    inputRehabCosts.addEventListener("input", updateCashFlow);
-    inputRehabInMonths.addEventListener("input", updateCashFlow);
+    inputAmortization.addEventListener("input", updateCashFlow);
+    inputInterestRate.addEventListener("change", updateCashFlow);
+    inputClosingCosts.addEventListener("change", updateCashFlow);
+    inputRehabCosts.addEventListener("change", updateCashFlow);
+    inputRehabInMonths.addEventListener("change", updateCashFlow);
     inputRefinance.addEventListener("input", updateCashFlow);
-    inputTimeToRefinance.addEventListener("input", updateCashFlow);
-    inputLtv.addEventListener("input", updateCashFlow);
+    inputTimeToRefinance.addEventListener("change", updateCashFlow);
+    inputLtv.addEventListener("change", updateCashFlow);
     inputRefinanceAmortization.addEventListener("input", updateCashFlow);
-    inputRefinanceInterestRate.addEventListener("input", updateCashFlow);
-    inputRefinanceClosingCosts.addEventListener("input", updateCashFlow);
-    inputRentalIncome.addEventListener("input", updateCashFlow);
-    inputOtherIncome.addEventListener("input", updateCashFlow);
-    inputVacancy.addEventListener("input", updateCashFlow);
-    inputRepairsMaintenance.addEventListener("input", updateCashFlow);
-    inputCapEx.addEventListener("input", updateCashFlow);
-    inputManagement.addEventListener("input", updateCashFlow);
-    inputUtilities.addEventListener("input", updateCashFlow);
-    inputHoa.addEventListener("input", updateCashFlow);
-    inputPropertyTaxRate.addEventListener("input", updateCashFlow);
-    inputPropertyInsurance.addEventListener("input", updateCashFlow);
-    inputOtherExpenses.addEventListener("input", updateCashFlow);
-    inputIncomeGrowth.addEventListener("input", updateCashFlow);
-    inputPropertyValueGrowth.addEventListener("input", updateCashFlow);
-    inputExpenseGrowth.addEventListener("input", updateCashFlow);
-    inputPropertyTaxGrowth.addEventListener("input", updateCashFlow);
+    inputRefinanceInterestRate.addEventListener("change", updateCashFlow);
+    inputRefinanceClosingCosts.addEventListener("change", updateCashFlow);
+    inputRentalIncome.addEventListener("change", updateCashFlow);
+    inputOtherIncome.addEventListener("change", updateCashFlow);
+    inputVacancy.addEventListener("change", updateCashFlow);
+    inputRepairsMaintenance.addEventListener("change", updateCashFlow);
+    inputCapEx.addEventListener("change", updateCashFlow);
+    inputManagement.addEventListener("change", updateCashFlow);
+    inputUtilities.addEventListener("change", updateCashFlow);
+    inputHoa.addEventListener("change", updateCashFlow);
+    inputPropertyTaxRate.addEventListener("change", updateCashFlow);
+    inputPropertyInsurance.addEventListener("change", updateCashFlow);
+    inputOtherExpenses.addEventListener("change", updateCashFlow);
+    inputIncomeGrowth.addEventListener("change", updateCashFlow);
+    inputPropertyValueGrowth.addEventListener("change", updateCashFlow);
+    inputExpenseGrowth.addEventListener("change", updateCashFlow);
+    inputPropertyTaxGrowth.addEventListener("change", updateCashFlow);
 
 
     function updateCashFlow(event) {
