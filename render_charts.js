@@ -189,47 +189,31 @@ window.addEventListener("load", async () => {
       },
       vacancy: {
         numericality: {
+          onlyInteger: true,
           greaterThanOrEqualTo: 0,
           lessThan: 100,
-          format: {
-            pattern: /^\d+(\.\d{1,2})?$/,
-            message:
-              "must be a positive number with up to 2 decimal places and less than or equal to 20",
-          },
-        },
+        }
       },
       repairsMaintenance: {
         numericality: {
+          onlyInteger: true,
           greaterThanOrEqualTo: 0,
           lessThan: 100,
-          format: {
-            pattern: /^\d+(\.\d{1,2})?$/,
-            message:
-              "must be a positive number with up to 2 decimal places and less than or equal to 20",
-          },
-        },
+        }
       },
       capEx: {
         numericality: {
+          onlyInteger: true,
           greaterThanOrEqualTo: 0,
           lessThan: 100,
-          format: {
-            pattern: /^\d+(\.\d{1,2})?$/,
-            message:
-              "must be a positive number with up to 2 decimal places and less than or equal to 20",
-          },
-        },
+        }
       },
       management: {
         numericality: {
+          onlyInteger: true,
           greaterThanOrEqualTo: 0,
           lessThan: 100,
-          format: {
-            pattern: /^\d+(\.\d{1,2})?$/,
-            message:
-              "must be a positive number with up to 2 decimal places and less than or equal to 20",
-          },
-        },
+        }
       },
       utilities: {
         numericality: {
@@ -245,14 +229,10 @@ window.addEventListener("load", async () => {
       },
       propertyTaxRate: {
         numericality: {
+          onlyInteger: true,
           greaterThan: 0,
           lessThan: 100,
-          format: {
-            pattern: /^\d+(\.\d{1,2})?$/,
-            message:
-              "must be a positive number with up to 2 decimal places and less than or equal to 20",
-          },
-        },
+        }
       },
       propertyInsurance: {
         numericality: {
@@ -268,47 +248,31 @@ window.addEventListener("load", async () => {
       },
       incomeGrowth: {
         numericality: {
-          greaterThanOrEqualTo: 0,
+          onlyInteger: true,
+          greaterThan: 0,
           lessThan: 100,
-          format: {
-            pattern: /^\d+(\.\d{1,2})?$/,
-            message:
-              "must be a positive number with up to 2 decimal places and less than or equal to 20",
-          },
-        },
+        }
       },
       propertyValueGrowth: {
         numericality: {
-          greaterThanOrEqualTo: 0,
+          onlyInteger: true,
+          greaterThan: 0,
           lessThan: 100,
-          format: {
-            pattern: /^\d+(\.\d{1,2})?$/,
-            message:
-              "must be a positive number with up to 2 decimal places and less than or equal to 20",
-          },
-        },
+        }
       },
       expenseGrowth: {
         numericality: {
-          greaterThanOrEqualTo: 0,
+          onlyInteger: true,
+          greaterThan: 0,
           lessThan: 100,
-          format: {
-            pattern: /^\d+(\.\d{1,2})?$/,
-            message:
-              "must be a positive number with up to 2 decimal places and less than or equal to 20",
-          },
-        },
+        }
       },
       propertyTaxGrowth: {
         numericality: {
+          onlyInteger: true,
           greaterThanOrEqualTo: 0,
           lessThan: 100,
-          format: {
-            pattern: /^\d+(\.\d{1,2})?$/,
-            message:
-              "must be a positive number with up to 2 decimal places and less than or equal to 20",
-          },
-        },
+        }
       }
     };
     // Setup Input Controls
