@@ -128,13 +128,13 @@ window.addEventListener("load", async () => {
       closingCosts: {
         numericality: {
           onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
         }
       },
       rehabCosts: {
         numericality: {
           onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
         }
       },
       rehabInMonths: {
@@ -172,59 +172,59 @@ window.addEventListener("load", async () => {
       refiClosingCosts: {
         numericality: {
           onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
         }
       },
       rentalIncome: {
         numericality: {
           onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
         }
       },
       otherIncome: {
         numericality: {
           onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
         }
       },
       vacancy: {
         numericality: {
           onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
           lessThan: 100,
         }
       },
       repairsMaintenance: {
         numericality: {
           onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
           lessThan: 100,
         }
       },
       capEx: {
         numericality: {
           onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
           lessThan: 100,
         }
       },
       management: {
         numericality: {
           onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
           lessThan: 100,
         }
       },
       utilities: {
         numericality: {
           onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
         }
       },
       hoa: {
         numericality: {
           onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
         }
       },
       propertyTaxRate: {
@@ -237,13 +237,13 @@ window.addEventListener("load", async () => {
       propertyInsurance: {
         numericality: {
           onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
         }
       },
       otherExpenses: {
         numericality: {
           onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
         }
       },
       incomeGrowth: {
@@ -270,7 +270,7 @@ window.addEventListener("load", async () => {
       propertyTaxGrowth: {
         numericality: {
           onlyInteger: true,
-          greaterThan: 0,
+          greaterThanOrEqualTo: 0,
           lessThan: 100,
         }
       }
@@ -309,73 +309,72 @@ window.addEventListener("load", async () => {
 
 
     // Setup Event Listeners
-    inputPurchasePrice.addEventListener("blur", updateCashFlow);
-    inputArv.addEventListener("blur", updateCashFlow);
+    inputPurchasePrice.addEventListener("input", updateCashFlow);
+    inputArv.addEventListener("input", updateCashFlow);
     inputMortgage.addEventListener("input", updateCashFlow);
     inputDownPaymentAmount.forEach(button => { button.addEventListener('click', updateCashFlow); });
     inputAmortization.addEventListener("change", updateCashFlow);
-    inputInterestRate.addEventListener("blur", updateCashFlow);
-    inputClosingCosts.addEventListener("blur", updateCashFlow);
-    inputRehabCosts.addEventListener("blur", updateCashFlow);
-    inputRehabInMonths.addEventListener("blur", updateCashFlow);
+    inputInterestRate.addEventListener("input", updateCashFlow);
+    inputClosingCosts.addEventListener("input", updateCashFlow);
+    inputRehabCosts.addEventListener("input", updateCashFlow);
+    inputRehabInMonths.addEventListener("input", updateCashFlow);
     inputRefinance.addEventListener("input", updateCashFlow);
-    inputTimeToRefinance.addEventListener("blur", updateCashFlow);
-    inputLtv.addEventListener("blur", updateCashFlow);
+    inputTimeToRefinance.addEventListener("input", updateCashFlow);
+    inputLtv.addEventListener("input", updateCashFlow);
     inputRefinanceAmortization.addEventListener("input", updateCashFlow);
-    inputRefinanceInterestRate.addEventListener("blur", updateCashFlow);
-    inputRefinanceClosingCosts.addEventListener("blur", updateCashFlow);
-
-    inputRentalIncome.addEventListener("inblurput", updateCashFlow);
-    inputOtherIncome.addEventListener("blur", updateCashFlow);
-    inputVacancy.addEventListener("blur", updateCashFlow);
-    inputRepairsMaintenance.addEventListener("blur", updateCashFlow);
-    inputCapEx.addEventListener("blur", updateCashFlow);
-    inputManagement.addEventListener("blur", updateCashFlow);
-    inputUtilities.addEventListener("blur", updateCashFlow);
-    inputHoa.addEventListener("blur", updateCashFlow);
-    inputPropertyTaxRate.addEventListener("blur", updateCashFlow);
-    inputPropertyInsurance.addEventListener("blur", updateCashFlow);
-    inputOtherExpenses.addEventListener("blur", updateCashFlow);
-    inputIncomeGrowth.addEventListener("blur", updateCashFlow);
-    inputPropertyValueGrowth.addEventListener("blur", updateCashFlow);
-    inputExpenseGrowth.addEventListener("blur", updateCashFlow);
-    inputPropertyTaxGrowth.addEventListener("blur", updateCashFlow);
+    inputRefinanceInterestRate.addEventListener("input", updateCashFlow);
+    inputRefinanceClosingCosts.addEventListener("input", updateCashFlow);
+    inputRentalIncome.addEventListener("input", updateCashFlow);
+    inputOtherIncome.addEventListener("input", updateCashFlow);
+    inputVacancy.addEventListener("input", updateCashFlow);
+    inputRepairsMaintenance.addEventListener("input", updateCashFlow);
+    inputCapEx.addEventListener("input", updateCashFlow);
+    inputManagement.addEventListener("input", updateCashFlow);
+    inputUtilities.addEventListener("input", updateCashFlow);
+    inputHoa.addEventListener("input", updateCashFlow);
+    inputPropertyTaxRate.addEventListener("input", updateCashFlow);
+    inputPropertyInsurance.addEventListener("input", updateCashFlow);
+    inputOtherExpenses.addEventListener("input", updateCashFlow);
+    inputIncomeGrowth.addEventListener("input", updateCashFlow);
+    inputPropertyValueGrowth.addEventListener("input", updateCashFlow);
+    inputExpenseGrowth.addEventListener("input", updateCashFlow);
+    inputPropertyTaxGrowth.addEventListener("input", updateCashFlow);
 
 
     function updateCashFlow(event) {
-      const purchasePrice = parseFloat(inputPurchasePrice.value);
-      const arv = parseFloat(inputArv.value);
-      const mortgage = inputMortgage.check;
-      const amortization = inputAmortization.value;
-      const interestRate = parseFloat(inputInterestRate.value);
-      const closingCosts = parseFloat(inputClosingCosts.value);
-      const rehabCosts = parseFloat(inputRehabCosts.value);
-      const rehabInMonths = parseFloat(inputRehabInMonths.value);
-      const refinance = inputRefinance.check;
-      const timeToRefinance = parseFloat(inputTimeToRefinance.value);
-      const ltv = parseFloat(inputLtv.value);
-      const refinanceAmortization = inputRefinanceAmortization.value;
-      const refinanceInterestRate = parseFloat(inputRefinanceInterestRate.value);
-      const refinanceClosingCosts = parseFloat(inputRefinanceClosingCosts.value);
-      const rentalIncome = parseFloat(inputRentalIncome.value);
-      const otherIncome = parseFloat(inputOtherIncome.value);
-      const vacancy = parseFloat(inputVacancy.value);
-      const repairsMaintenance = parseFloat(inputRepairsMaintenance.value);
-      const capEx = parseFloat(inputCapEx.value);
-      const management = parseFloat(inputManagement.value);
-      const utilities = parseFloat(inputUtilities.value);
-      const hoa = parseFloat(inputHoa.value);
-      const propertyTaxRate = parseFloat(inputPropertyTaxRate.value);
-      const propertyInsurance = parseFloat(inputPropertyInsurance.value);
-      const otherExpenses = parseFloat(inputOtherExpenses.value);
-      const incomeGrowth = parseFloat(inputIncomeGrowth.value);
-      const propertyValueGrowth = parseFloat(inputPropertyValueGrowth.value);
-      const expenseGrowth = parseFloat(inputExpenseGrowth.value);
-      const propertyTaxGrowth = parseFloat(inputPropertyTaxGrowth.value);
+      const purchasePrice = parseInt(inputPurchasePrice.value);
+      const arv = parseInt(inputArv.value);
+      const mortgage = parseInt(inputMortgage.value);
+      const amortization = parseInt(inputAmortization.value);
+      const interestRate = parseInt(inputInterestRate.value);
+      const closingCosts = parseInt(inputClosingCosts.value);
+      const rehabCosts = parseInt(inputRehabCosts.value);
+      const rehabInMonths = parseInt(inputRehabInMonths.value);
+      const refinance = parseInt(inputRefinance.value);
+      const timeToRefinance = parseInt(inputTimeToRefinance.value);
+      const ltv = parseInt(inputLtv.value);
+      const refinanceAmortization = parseInt(inputRefinanceAmortization.value);
+      const refinanceInterestRate = parseInt(inputRefinanceInterestRate.value);
+      const refinanceClosingCosts = parseInt(inputRefinanceClosingCosts.value);
+      const rentalIncome = parseInt(inputRentalIncome.value);
+      const otherIncome = parseInt(inputOtherIncome.value);
+      const vacancy = parseInt(inputVacancy.value);
+      const repairsMaintenance = parseInt(inputRepairsMaintenance.value);
+      const capEx = parseInt(inputCapEx.value);
+      const management = parseInt(inputManagement.value);
+      const utilities = parseInt(inputUtilities.value);
+      const hoa = parseInt(inputHoa.value);
+      const propertyTaxRate = parseInt(inputPropertyTaxRate.value);
+      const propertyInsurance = parseInt(inputPropertyInsurance.value);
+      const otherExpenses = parseInt(inputOtherExpenses.value);
+      const incomeGrowth = parseInt(inputIncomeGrowth.value);
+      const propertyValueGrowth = parseInt(inputPropertyValueGrowth.value);
+      const expenseGrowth = parseInt(inputExpenseGrowth.value);
+      const propertyTaxGrowth = parseInt(inputPropertyTaxGrowth.value);
 
       // Get the down payment value from the checked radio button
       const inputDownPaymentAmount = document.querySelector('input[name="downPaymentAmount"]:checked');
-      downPaymentAmount = inputDownPaymentAmount.value / 100 * purchasePrice.value;
+      downPaymentAmount = inputDownPaymentAmount.value / 100 * purchasePrice;
       loanAmount = purchasePrice - downPaymentAmount; // Re-calculate the loan amount
 
       if (inputMortgage.checked) {
@@ -524,38 +523,6 @@ window.addEventListener("load", async () => {
         }
 
       } else {
-        console.log({
-          mortgage,
-          purchasePrice,
-          arv,
-          downPaymentAmount,
-          amortization,
-          interestRate,
-          closingCosts,
-          rehabCosts,
-          rehabInMonths,
-          timeToRefinance,
-          ltv,
-          refinance,
-          refinanceInterestRate,
-          refinanceClosingCosts,
-          refinanceAmortization,
-          rentalIncome,
-          otherIncome,
-          vacancy,
-          repairsMaintenance,
-          capEx,
-          management,
-          utilities,
-          hoa,
-          propertyTaxRate,
-          propertyInsurance,
-          otherExpenses,
-          incomeGrowth,
-          propertyValueGrowth,
-          expenseGrowth,
-          propertyTaxGrowth
-        })
         const [data, monthlyData] = returnsCashFlowCalculator
           .setPurchasePrice(purchasePrice)
           .setArv(arv)
@@ -579,7 +546,7 @@ window.addEventListener("load", async () => {
           .setCapExRate(capEx)
           .setPropertyManagementFee(management)
           .setUtilities(utilities)
-          //.setHoa(hoa)
+          .setHoa(hoa)
           .setPropertyTaxRate(propertyTaxRate)
           .setPropertyInsurance(propertyInsurance)
           .setOtherExpenses(otherExpenses)
@@ -587,11 +554,10 @@ window.addEventListener("load", async () => {
           .setPropertyValueGrowth(propertyValueGrowth)
           .setExpenseGrowth(expenseGrowth)
           .setPropertyTaxGrowth(propertyTaxGrowth)
-          // .setRefinanceClosingCosts(refinanceClosingCosts)
+          // Not referenced in calculator .setRefinanceClosingCosts(refinanceClosingCosts)
           .calculate();
         returnsCashFlowChart.setData(data).update();
         Wized.data.setVariable("data", data);
-        Wized.request.execute("Update Report");
         console.log("New data populated from user input", data)
       }
     }
@@ -646,9 +612,9 @@ window.addEventListener("load", async () => {
             document.querySelector("#chartYear").textContent = d.year;
             document.querySelector("#atYear").textContent = "at year";
             document.querySelector("#chartValue0").textContent = `${d.values[0].name
-              }: ${formatValue(d.values[0].value)}`;
-            document.querySelector("#chartValue1").textContent = `${d.values[1].name
-              }: ${formatValue(d.values[1].value)}`;
+            }: ${formatValue(d.values[0].value)}`;
+          document.querySelector("#chartValue1").textContent = `${d.values[1].name
+            }: ${formatValue(d.values[1].value)}`;
             document.querySelector("#circle_0").textContent = "circle";
             document.querySelector("#circle_1").textContent = "circle";
             document.querySelector("#chartLTV").style.display = "none";
