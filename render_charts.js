@@ -342,7 +342,7 @@ window.addEventListener("load", async () => {
 
 
     function updateCashFlow(event) {
-      const purchasePrice = parseInt(inputPurchasePrice.value);
+      const purchasePrice = parseFloat(inputPurchasePrice.value);
       const arv = parseInt(inputArv.value);
       const mortgage = inputMortgage.checked;
       const amortization = parseInt(inputAmortization.value);
