@@ -31,11 +31,8 @@ window.addEventListener("load", async () => {
       refi_ltv: ltv,
       refi_interest_rate: refinanceInterestRate,
       refi_amortization: refinanceAmortization,
-      gas,
       hoa,
-      water_sewer: waterSewer,
-      electricity,
-      trash,
+      utilities,
       months_to_refinance: timeToRefinance,
       income_growth: incomeGrowth,
       pv_growth: propertyValueGrowth,
@@ -424,7 +421,7 @@ window.addEventListener("load", async () => {
       const validation = validate({
         purchasePrice,
         arv,
-        interestRate,
+        /*interestRate,
         closingCosts,
         rehabCosts,
         rehabInMonths,
@@ -446,7 +443,7 @@ window.addEventListener("load", async () => {
         incomeGrowth,
         propertyValueGrowth,
         expenseGrowth,
-        propertyTaxGrowth
+        propertyTaxGrowth*/
       }, constraints);
 
       if (validation) {
