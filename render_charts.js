@@ -345,7 +345,7 @@ window.addEventListener("load", async () => {
     function updateCashFlow(event) {
       const purchasePrice = parseInt(inputPurchasePrice.value);
       const arv = parseInt(inputArv.value);
-      const mortgage = parseInt(inputMortgage.value);
+      const mortgage = parseInt(inputMortgage.check);
       const amortization = parseInt(inputAmortization.value);
       const interestRate = parseInt(inputInterestRate.value);
       const closingCosts = parseInt(inputClosingCosts.value);
@@ -524,6 +524,38 @@ window.addEventListener("load", async () => {
         }
 
       } else {
+        console.log({
+        mortgage,
+        purchasePrice,
+        arv,
+        downPaymentAmount,
+        amortization,
+        interestRate,
+        closingCosts,
+        rehabCosts,
+        rehabInMonths,
+        timeToRefinance,
+        ltv,
+        refinance,
+        refinanceInterestRate,
+        refinanceClosingCosts,
+        refinanceAmortization,
+        rentalIncome,
+        otherIncome,
+        vacancy,
+        repairsMaintenance,
+        capEx,
+        management,
+        utilities,
+        hoa,
+        propertyTaxRate,
+        propertyInsurance,
+        otherExpenses,
+        incomeGrowth,
+        propertyValueGrowth,
+        expenseGrowth,
+        propertyTaxGrowth
+      })
         const [data, monthlyData] = returnsCashFlowCalculator
           .setPurchasePrice(purchasePrice)
           .setArv(arv)
