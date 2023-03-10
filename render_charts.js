@@ -31,19 +31,17 @@ window.addEventListener("load", async () => {
       refi_ltv: ltv,
       refi_interest_rate: refinanceInterestRate,
       refi_amortization: refinanceAmortization,
-      gas,
       hoa,
-      water_sewer: waterSewer,
-      electricity,
-      trash,
+      utilities,
       months_to_refinance: timeToRefinance,
       income_growth: incomeGrowth,
       pv_growth: propertyValueGrowth,
       expense_growth: expenseGrowth,
       property_tax_growth: propertyTaxGrowth,
     } = report;
+    
+    console.log(report)
 
-    let utilities = gas + waterSewer + electricity + trash;
     let refinanceLoanAmount = arv * ltv / 100;
     let downPaymentAmount = downPayment / 100 * purchasePrice;
     let loanAmount = purchasePrice - downPaymentAmount;
