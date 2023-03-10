@@ -309,37 +309,37 @@ window.addEventListener("load", async () => {
 
 
     // Setup Event Listeners
-    inputPurchasePrice.addEventListener("input", updateCashFlow);
-    inputArv.addEventListener("input", updateCashFlow);
+    inputPurchasePrice.addEventListener("blur", updateCashFlow);
+    inputArv.addEventListener("blur", updateCashFlow);
     inputMortgage.addEventListener("input", updateCashFlow);
     inputDownPaymentAmount.forEach(button => { button.addEventListener('click', updateCashFlow); });
     inputAmortization.addEventListener("change", updateCashFlow);
-    inputInterestRate.addEventListener("input", updateCashFlow);
-    inputClosingCosts.addEventListener("input", updateCashFlow);
-    inputRehabCosts.addEventListener("input", updateCashFlow);
-    inputRehabInMonths.addEventListener("input", updateCashFlow);
+    inputInterestRate.addEventListener("blur", updateCashFlow);
+    inputClosingCosts.addEventListener("blur", updateCashFlow);
+    inputRehabCosts.addEventListener("blur", updateCashFlow);
+    inputRehabInMonths.addEventListener("blur", updateCashFlow);
     inputRefinance.addEventListener("input", updateCashFlow);
-    inputTimeToRefinance.addEventListener("input", updateCashFlow);
-    inputLtv.addEventListener("input", updateCashFlow);
+    inputTimeToRefinance.addEventListener("blur", updateCashFlow);
+    inputLtv.addEventListener("blur", updateCashFlow);
     inputRefinanceAmortization.addEventListener("input", updateCashFlow);
-    inputRefinanceInterestRate.addEventListener("input", updateCashFlow);
-    inputRefinanceClosingCosts.addEventListener("input", updateCashFlow);
+    inputRefinanceInterestRate.addEventListener("blur", updateCashFlow);
+    inputRefinanceClosingCosts.addEventListener("blur", updateCashFlow);
 
-    inputRentalIncome.addEventListener("input", updateCashFlow);
-    inputOtherIncome.addEventListener("input", updateCashFlow);
-    inputVacancy.addEventListener("input", updateCashFlow);
-    inputRepairsMaintenance.addEventListener("input", updateCashFlow);
-    inputCapEx.addEventListener("input", updateCashFlow);
-    inputManagement.addEventListener("input", updateCashFlow);
-    inputUtilities.addEventListener("input", updateCashFlow);
-    inputHoa.addEventListener("input", updateCashFlow);
-    inputPropertyTaxRate.addEventListener("input", updateCashFlow);
-    inputPropertyInsurance.addEventListener("input", updateCashFlow);
-    inputOtherExpenses.addEventListener("input", updateCashFlow);
-    inputIncomeGrowth.addEventListener("input", updateCashFlow);
-    inputPropertyValueGrowth.addEventListener("input", updateCashFlow);
-    inputExpenseGrowth.addEventListener("input", updateCashFlow);
-    inputPropertyTaxGrowth.addEventListener("input", updateCashFlow);
+    inputRentalIncome.addEventListener("inblurput", updateCashFlow);
+    inputOtherIncome.addEventListener("blur", updateCashFlow);
+    inputVacancy.addEventListener("blur", updateCashFlow);
+    inputRepairsMaintenance.addEventListener("blur", updateCashFlow);
+    inputCapEx.addEventListener("blur", updateCashFlow);
+    inputManagement.addEventListener("blur", updateCashFlow);
+    inputUtilities.addEventListener("blur", updateCashFlow);
+    inputHoa.addEventListener("blur", updateCashFlow);
+    inputPropertyTaxRate.addEventListener("blur", updateCashFlow);
+    inputPropertyInsurance.addEventListener("blur", updateCashFlow);
+    inputOtherExpenses.addEventListener("blur", updateCashFlow);
+    inputIncomeGrowth.addEventListener("blur", updateCashFlow);
+    inputPropertyValueGrowth.addEventListener("blur", updateCashFlow);
+    inputExpenseGrowth.addEventListener("blur", updateCashFlow);
+    inputPropertyTaxGrowth.addEventListener("blur", updateCashFlow);
 
 
     function updateCashFlow(event) {
