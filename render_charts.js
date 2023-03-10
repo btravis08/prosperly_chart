@@ -527,7 +527,7 @@ window.addEventListener("load", async () => {
         const [data, monthlyData] = returnsCashFlowCalculator
           .setPurchasePrice(purchasePrice)
           .setArv(arv)
-          /*.setMortgage(mortgage)
+          .setMortgage(mortgage)
           .setLoanAmount(loanAmount)
           .setDownPaymentAmount(downPaymentAmount)
           .setAmortization(amortization)
@@ -543,7 +543,7 @@ window.addEventListener("load", async () => {
           .setRentalIncome(rentalIncome)
           .setOtherIncome(otherIncome)
           .setVacancyRate(vacancy)
-          .SetMaintenanceRepairsRate(repairsMaintenance)
+          .setMaintenanceRepairsRate(repairsMaintenance)
           .setCapExRate(capEx)
           .setPropertyManagementFee(management)
           .setUtilities(utilities)
@@ -554,7 +554,7 @@ window.addEventListener("load", async () => {
           .setIncomeGrowth(incomeGrowth)
           .setPropertyValueGrowth(propertyValueGrowth)
           .setExpenseGrowth(expenseGrowth)
-          .setPropertyTaxGrowth(propertyTaxGrowth)*/
+          .setPropertyTaxGrowth(propertyTaxGrowth)
           // Not referenced in calculator .setRefinanceClosingCosts(refinanceClosingCosts)
           .calculate();
         returnsCashFlowChart.setData(data).update();
