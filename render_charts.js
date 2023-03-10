@@ -343,39 +343,39 @@ window.addEventListener("load", async () => {
 
 
     function updateCashFlow(event) {
-      const purchasePrice = parseInt(inputPurchasePrice.value);
-      const arv = parseInt(inputArv.value);
-      const mortgage = parseInt(inputMortgage.check);
-      const amortization = parseInt(inputAmortization.value);
-      const interestRate = parseInt(inputInterestRate.value);
-      const closingCosts = parseInt(inputClosingCosts.value);
-      const rehabCosts = parseInt(inputRehabCosts.value);
-      const rehabInMonths = parseInt(inputRehabInMonths.value);
-      const refinance = parseInt(inputRefinance.value);
-      const timeToRefinance = parseInt(inputTimeToRefinance.value);
-      const ltv = parseInt(inputLtv.value);
-      const refinanceAmortization = parseInt(inputRefinanceAmortization.value);
-      const refinanceInterestRate = parseInt(inputRefinanceInterestRate.value);
-      const refinanceClosingCosts = parseInt(inputRefinanceClosingCosts.value);
-      const rentalIncome = parseInt(inputRentalIncome.value);
-      const otherIncome = parseInt(inputOtherIncome.value);
-      const vacancy = parseInt(inputVacancy.value);
-      const repairsMaintenance = parseInt(inputRepairsMaintenance.value);
-      const capEx = parseInt(inputCapEx.value);
-      const management = parseInt(inputManagement.value);
-      const utilities = parseInt(inputUtilities.value);
-      const hoa = parseInt(inputHoa.value);
-      const propertyTaxRate = parseInt(inputPropertyTaxRate.value);
-      const propertyInsurance = parseInt(inputPropertyInsurance.value);
-      const otherExpenses = parseInt(inputOtherExpenses.value);
-      const incomeGrowth = parseInt(inputIncomeGrowth.value);
-      const propertyValueGrowth = parseInt(inputPropertyValueGrowth.value);
-      const expenseGrowth = parseInt(inputExpenseGrowth.value);
-      const propertyTaxGrowth = parseInt(inputPropertyTaxGrowth.value);
+      const purchasePrice = inputPurchasePrice.value;
+      const arv = inputArv.value;
+      const mortgage = inputMortgage.check;
+      const amortization = inputAmortization.value;
+      const interestRate = inputInterestRate.value;
+      const closingCosts = inputClosingCosts.value;
+      const rehabCosts = inputRehabCosts.value;
+      const rehabInMonths = inputRehabInMonths.value;
+      const refinance = inputRefinance.check;
+      const timeToRefinance = inputTimeToRefinance.value;
+      const ltv = inputLtv.value;
+      const refinanceAmortization = inputRefinanceAmortization.value;
+      const refinanceInterestRate = inputRefinanceInterestRate.value;
+      const refinanceClosingCosts = inputRefinanceClosingCosts.value;
+      const rentalIncome = inputRentalIncome.value;
+      const otherIncome = inputOtherIncome.value;
+      const vacancy = inputVacancy.value;
+      const repairsMaintenance = inputRepairsMaintenance.value;
+      const capEx = inputCapEx.value;
+      const management = inputManagement.value;
+      const utilities = inputUtilities.value;
+      const hoa = inputHoa.value;
+      const propertyTaxRate = inputPropertyTaxRate.value;
+      const propertyInsurance = inputPropertyInsurance.value;
+      const otherExpenses = inputOtherExpenses.value;
+      const incomeGrowth = inputIncomeGrowth.value;
+      const propertyValueGrowth = inputPropertyValueGrowth.value;
+      const expenseGrowth = inputExpenseGrowth.value;
+      const propertyTaxGrowth = inputPropertyTaxGrowth.value;
 
       // Get the down payment value from the checked radio button
       const inputDownPaymentAmount = document.querySelector('input[name="downPaymentAmount"]:checked');
-      downPaymentAmount = inputDownPaymentAmount.value / 100 * purchasePrice;
+      downPaymentAmount = inputDownPaymentAmount.value / 100 * inputPurchasePrice.value;
       loanAmount = purchasePrice - downPaymentAmount; // Re-calculate the loan amount
 
       if (inputMortgage.checked) {
@@ -525,37 +525,37 @@ window.addEventListener("load", async () => {
 
       } else {
         console.log({
-        mortgage,
-        purchasePrice,
-        arv,
-        downPaymentAmount,
-        amortization,
-        interestRate,
-        closingCosts,
-        rehabCosts,
-        rehabInMonths,
-        timeToRefinance,
-        ltv,
-        refinance,
-        refinanceInterestRate,
-        refinanceClosingCosts,
-        refinanceAmortization,
-        rentalIncome,
-        otherIncome,
-        vacancy,
-        repairsMaintenance,
-        capEx,
-        management,
-        utilities,
-        hoa,
-        propertyTaxRate,
-        propertyInsurance,
-        otherExpenses,
-        incomeGrowth,
-        propertyValueGrowth,
-        expenseGrowth,
-        propertyTaxGrowth
-      })
+          mortgage,
+          purchasePrice,
+          arv,
+          downPaymentAmount,
+          amortization,
+          interestRate,
+          closingCosts,
+          rehabCosts,
+          rehabInMonths,
+          timeToRefinance,
+          ltv,
+          refinance,
+          refinanceInterestRate,
+          refinanceClosingCosts,
+          refinanceAmortization,
+          rentalIncome,
+          otherIncome,
+          vacancy,
+          repairsMaintenance,
+          capEx,
+          management,
+          utilities,
+          hoa,
+          propertyTaxRate,
+          propertyInsurance,
+          otherExpenses,
+          incomeGrowth,
+          propertyValueGrowth,
+          expenseGrowth,
+          propertyTaxGrowth
+        })
         const [data, monthlyData] = returnsCashFlowCalculator
           .setPurchasePrice(purchasePrice)
           .setArv(arv)
@@ -646,9 +646,9 @@ window.addEventListener("load", async () => {
             document.querySelector("#chartYear").textContent = d.year;
             document.querySelector("#atYear").textContent = "at year";
             document.querySelector("#chartValue0").textContent = `${d.values[0].name
-            }: ${formatValue(d.values[0].value)}`;
-          document.querySelector("#chartValue1").textContent = `${d.values[1].name
-            }: ${formatValue(d.values[1].value)}`;
+              }: ${formatValue(d.values[0].value)}`;
+            document.querySelector("#chartValue1").textContent = `${d.values[1].name
+              }: ${formatValue(d.values[1].value)}`;
             document.querySelector("#circle_0").textContent = "circle";
             document.querySelector("#circle_1").textContent = "circle";
             document.querySelector("#chartLTV").style.display = "none";
