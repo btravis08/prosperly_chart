@@ -547,7 +547,7 @@ window.addEventListener("load", async () => {
           .setCapExRate(capEx)
           .setPropertyManagementFee(management)
           .setUtilities(utilities)
-          .setHoa(hoa)
+          //.setHoa(hoa)
           .setPropertyTaxRate(propertyTaxRate)
           .setPropertyInsurance(propertyInsurance)
           .setOtherExpenses(otherExpenses)
@@ -555,7 +555,7 @@ window.addEventListener("load", async () => {
           .setPropertyValueGrowth(propertyValueGrowth)
           .setExpenseGrowth(expenseGrowth)
           .setPropertyTaxGrowth(propertyTaxGrowth)
-          // Not referenced in calculator .setRefinanceClosingCosts(refinanceClosingCosts)
+          // .setRefinanceClosingCosts(refinanceClosingCosts)
           .calculate();
         returnsCashFlowChart.setData(data).update();
         Wized.data.setVariable("data", data);
