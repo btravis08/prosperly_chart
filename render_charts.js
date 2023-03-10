@@ -523,6 +523,33 @@ window.addEventListener("load", async () => {
         }
 
       } else {
+        console.log({
+          purchasePrice,
+          arv,
+          interestRate,
+          closingCosts,
+          rehabCosts,
+          rehabInMonths,
+          timeToRefinance,
+          ltv,
+          refinanceInterestRate,
+          refinanceClosingCosts,
+          rentalIncome,
+          otherIncome,
+          vacancy,
+          repairsMaintenance,
+          capEx,
+          management,
+          utilities,
+          hoa,
+          propertyTaxRate,
+          propertyInsurance,
+          otherExpenses,
+          incomeGrowth,
+          propertyValueGrowth,
+          expenseGrowth,
+          propertyTaxGrowth
+        });
         const [data, monthlyData] = returnsCashFlowCalculator
           .setPurchasePrice(purchasePrice)
           .setArv(arv)
