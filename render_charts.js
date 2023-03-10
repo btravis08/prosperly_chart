@@ -343,39 +343,39 @@ window.addEventListener("load", async () => {
 
 
     function updateCashFlow(event) {
-      const purchasePrice = inputPurchasePrice.value;
-      const arv = inputArv.value;
+      const purchasePrice = parseFloat(inputPurchasePrice.value);
+      const arv = parseFloat(inputArv.value);
       const mortgage = inputMortgage.check;
       const amortization = inputAmortization.value;
-      const interestRate = inputInterestRate.value;
-      const closingCosts = inputClosingCosts.value;
-      const rehabCosts = inputRehabCosts.value;
-      const rehabInMonths = inputRehabInMonths.value;
+      const interestRate = parseFloat(inputInterestRate.value);
+      const closingCosts = parseFloat(inputClosingCosts.value);
+      const rehabCosts = parseFloat(inputRehabCosts.value);
+      const rehabInMonths = parseFloat(inputRehabInMonths.value);
       const refinance = inputRefinance.check;
-      const timeToRefinance = inputTimeToRefinance.value;
-      const ltv = inputLtv.value;
+      const timeToRefinance = parseFloat(inputTimeToRefinance.value);
+      const ltv = parseFloat(inputLtv.value);
       const refinanceAmortization = inputRefinanceAmortization.value;
-      const refinanceInterestRate = inputRefinanceInterestRate.value;
-      const refinanceClosingCosts = inputRefinanceClosingCosts.value;
-      const rentalIncome = inputRentalIncome.value;
-      const otherIncome = inputOtherIncome.value;
-      const vacancy = inputVacancy.value;
-      const repairsMaintenance = inputRepairsMaintenance.value;
-      const capEx = inputCapEx.value;
-      const management = inputManagement.value;
-      const utilities = inputUtilities.value;
-      const hoa = inputHoa.value;
-      const propertyTaxRate = inputPropertyTaxRate.value;
-      const propertyInsurance = inputPropertyInsurance.value;
-      const otherExpenses = inputOtherExpenses.value;
-      const incomeGrowth = inputIncomeGrowth.value;
-      const propertyValueGrowth = inputPropertyValueGrowth.value;
-      const expenseGrowth = inputExpenseGrowth.value;
-      const propertyTaxGrowth = inputPropertyTaxGrowth.value;
+      const refinanceInterestRate = parseFloat(inputRefinanceInterestRate.value);
+      const refinanceClosingCosts = parseFloat(inputRefinanceClosingCosts.value);
+      const rentalIncome = parseFloat(inputRentalIncome.value);
+      const otherIncome = parseFloat(inputOtherIncome.value);
+      const vacancy = parseFloat(inputVacancy.value);
+      const repairsMaintenance = parseFloat(inputRepairsMaintenance.value);
+      const capEx = parseFloat(inputCapEx.value);
+      const management = parseFloat(inputManagement.value);
+      const utilities = parseFloat(inputUtilities.value);
+      const hoa = parseFloat(inputHoa.value);
+      const propertyTaxRate = parseFloat(inputPropertyTaxRate.value);
+      const propertyInsurance = parseFloat(inputPropertyInsurance.value);
+      const otherExpenses = parseFloat(inputOtherExpenses.value);
+      const incomeGrowth = parseFloat(inputIncomeGrowth.value);
+      const propertyValueGrowth = parseFloat(inputPropertyValueGrowth.value);
+      const expenseGrowth = parseFloat(inputExpenseGrowth.value);
+      const propertyTaxGrowth = parseFloat(inputPropertyTaxGrowth.value);
 
       // Get the down payment value from the checked radio button
       const inputDownPaymentAmount = document.querySelector('input[name="downPaymentAmount"]:checked');
-      downPaymentAmount = inputDownPaymentAmount.value / 100 * inputPurchasePrice.value;
+      downPaymentAmount = inputDownPaymentAmount.value / 100 * purchasePrice.value;
       loanAmount = purchasePrice - downPaymentAmount; // Re-calculate the loan amount
 
       if (inputMortgage.checked) {
