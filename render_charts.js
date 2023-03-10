@@ -559,6 +559,7 @@ window.addEventListener("load", async () => {
           .calculate();
         returnsCashFlowChart.setData(data).update();
         Wized.data.setVariable("data", data);
+        Wized.request.execute("Update Report");
         console.log("New data populated from user input", data)
       }
     }
