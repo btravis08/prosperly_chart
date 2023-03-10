@@ -524,6 +524,11 @@ window.addEventListener("load", async () => {
 
       } else {
         console.log({
+          mortgage,
+          refinance,
+          downPaymentAmount,
+          amortization,
+          refinanceAmortization,
           purchasePrice,
           arv,
           interestRate,
