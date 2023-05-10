@@ -7,7 +7,60 @@ window.addEventListener("load", async () => {
       Wized.data.get("r.7.d.report"),
       Wized.data.get("r.7.d.cash_out_potential"),
     ]);
+    
+  /////
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYnRyYXZpczA4IiwiYSI6ImNsaGkydzVobzAzd2czZnM2Z2t6MnJjbDAifQ.WL9mQbiI0SyDO-BzsRiZ-A';
 
+  // Set your variable coordinates here
+  const latitude = 34.03345400;
+  const longitude = -118.20663300;
+  console.log(latitude)
+  var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v12',
+  center: [longitude, latitude],
+  zoom: 16,
+  scrollZoom: false
+  
+});
+
+// Define the marker CSS to display the marker image
+var markerCSS = document.createElement('style');
+markerCSS.innerHTML = '.marker { background-image: url(https://uploads-ssl.webflow.com/633521ccc16728c6f4181177/645bf9be8bcab0cd97cfa683_waypoint.png); background-size: contain; background-position: center; background-repeat: no-repeat; }';
+document.head.appendChild(markerCSS);
+
+// Create a new marker with a custom HTML element
+var markerElement = document.createElement('div');
+markerElement.className = 'marker';
+markerElement.style.width = '60px';
+markerElement.style.height = '60px';
+
+// Create a new popup with the address
+var popup = new mapboxgl.Popup({ offset: 25, closeButton: false })
+  .setHTML('<p>624 S Evergreen Ave</p><p>Los Angeles, CA 90023</p>');
+
+// Add the marker to the map
+var marker = new mapboxgl.Marker(markerElement)
+  .setLngLat([longitude, latitude])
+  .addTo(map);
+
+// Show the popup on hover
+markerElement.addEventListener('mouseenter', function() {
+  popup.setLngLat(marker.getLngLat())
+    .addTo(map);
+});
+
+// Hide the popup when the mouse leaves the marker
+markerElement.addEventListener('mouseleave', function() {
+  popup.remove();
+});
+
+// Log any errors related to the marker CSS
+if (getComputedStyle(markerElement).getPropertyValue('background-image') === 'none') {
+  console.error('Error loading marker CSS:', markerElement.className);
+}
+
+  /////  
     let {
       mortgage,
       down_payment: downPayment,
